@@ -13,8 +13,8 @@ public static class AuthenticationConfiguration
             })
             .AddGoogle(opt =>
             {
-                opt.ClientId = "738097913258-9bk5qctc07ahta2kncaqv702qns9v2br.apps.googleusercontent.com";
-                opt.ClientSecret = "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";
+                opt.ClientId = "";
+                opt.ClientSecret = "";
             });
 
         return services;
