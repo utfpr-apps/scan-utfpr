@@ -12,7 +12,6 @@ public class AuthController : MainController
 {
     public AuthController(IMediator mediator, INotificationContext notificationContext) : base(mediator, notificationContext)
     {
-        _notificationContext = notificationContext;
     }
     
     [HttpPost]
