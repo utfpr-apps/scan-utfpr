@@ -18,9 +18,11 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Projeto no VSCode
 
-1. Instalar os componentes do Flutter e do Dart
+1. Instalar os componentes 
+   - Flutter e do Dart
+   - Material auxiliar para montagem de ambiente
 
-2. No terminal do vscode executar o 
+2. Para rodar o projeto, tem os pré-requisitos de executar comandos específicos, no terminal do vscode executar o 
    - ```flutter channel dev```
    - ```flutter upgrade```
    - ```flutter pub get```
