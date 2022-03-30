@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:scan/shared/themes/app_images.dart';
 
 import '../../shared/themes/app_colors.dart';
 import '../../shared/themes/app_text_styles.dart';
+import '../../shared/widgets/button.dart';
 import '../../shared/widgets/drawer_tiles.dart';
 
 class SuccessPage extends StatefulWidget {
@@ -22,7 +24,7 @@ class _SuccessPageState extends State<SuccessPage> {
             children: [
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 60, vertical: 25),
+                  const EdgeInsets.symmetric(horizontal: 60, vertical: 25),
                 child: Image.asset(
                   AppImages.logoUTFPR,
                   fit: BoxFit.fitHeight,
@@ -67,22 +69,15 @@ class _SuccessPageState extends State<SuccessPage> {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(20),
-              child: Icon(
-                Icons.qr_code_scanner,
-                size: 200,
-              ),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Lottie.asset("assets/anim/checked.json"),
             ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Container(
-                child: const Text(
-                  "Ler o QR Code",
-                  textAlign: TextAlign.center,
-                ),
-                width: 300,
-              ),
+            Button(
+              title: "Concluir",
+              onTap: () {
+                Navigator.pushReplacementNamed(context, "home");
+              },
             ),
           ],
         ),

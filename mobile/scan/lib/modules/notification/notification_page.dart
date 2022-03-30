@@ -1,7 +1,5 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:scan/modules/block/block_page.dart';
 import 'package:scan/shared/widgets/button.dart';
 
 import '../../shared/themes/app_colors.dart';
@@ -15,6 +13,7 @@ class NotificationPage extends StatefulWidget {
 }
 
 class _NotificationPageState extends State<NotificationPage> {
+  DateTime? _chosenDateTime;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,14 +39,29 @@ class _NotificationPageState extends State<NotificationPage> {
             "Qual a data do exame/diagnóstico?",
             style: AppTextStyles.normalRegular,
           ),
+          
           Container(
-            
             height: 200,
-            child: Icon(CupertinoIcons.arrow_2_circlepath)
+            child: CupertinoDatePicker(
+
+              use24hFormat: true,
+
+              initialDateTime: DateTime.now(),
+              onDateTimeChanged: (val) {
+                setState(
+                  () {
+                    _chosenDateTime = val;
+                  },
+                );
+              },
+            ),
           ),
-          Button(title: "Confirmar data do exame", onTap: (){
-           Navigator.pushNamed(context, "block");
-          },),
+          Button(
+            title: "Confirmar data do exame",
+            onTap: () {
+              Navigator.pushNamed(context, "block");
+            },
+          ),
         ],
       ),
     );

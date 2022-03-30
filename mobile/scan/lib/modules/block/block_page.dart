@@ -86,7 +86,7 @@ class _BlockPageState extends State<BlockPage> {
             Button(
               title: "Realizar check-in",
               onTap: () {
-                Navigator.pushNamed(context, "block");
+                Navigator.pushNamed(context, "success");
               },
             )
           ],

@@ -1,4 +1,7 @@
+import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:lottie/lottie.dart';
 import 'package:scan/shared/themes/app_images.dart';
 import 'package:scan/shared/widgets/button.dart';
 
@@ -31,20 +34,24 @@ class _HomePageState extends State<HomePage> {
                 height: 1,
                 color: Colors.grey.shade300,
               ),
-              const DrawerTiles(
+              DrawerTiles(
                 imageAssetSouce: AppImages.qrCode,
                 text: "Ler QR Code",
+                ontap: () {},
               ),
               DrawerTiles(
                 imageAssetSouce: AppImages.destaque,
                 text: "Notificar COVID-19",
-                ontap: (){
+                ontap: () {
                   Navigator.pushNamed(context, "notification");
                 },
               ),
-              const DrawerTiles(
+              DrawerTiles(
                 imageAssetSouce: AppImages.download,
                 text: "Sair do app",
+                ontap: () {
+                  SystemNavigator.pop();
+                },
               ),
             ],
           ),
@@ -68,7 +75,7 @@ class _HomePageState extends State<HomePage> {
                     TextSpan(text: "Scan\n\n", style: AppTextStyles.normalBold),
                     const TextSpan(
                       text:
-                          "Nosso objetivo é poder criar ações rápidas e seguras para prevenção de COVID\n\n\n",
+                          "Nosso objetivo é poder criar ações rápidas e seguras para prevenção de COVID\n\n",
                     ),
                     const TextSpan(
                       text:
@@ -78,12 +85,9 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-             Padding(
+            Padding(
               padding: EdgeInsets.all(20),
-              child: Image.asset(
-                  AppImages.qrCode,
-                  fit: BoxFit.fitHeight,
-                ),
+              child: Lottie.asset("assets/anim/QR_Code.json", height: 250),
             ),
             Button(
               title: "Ler o QR Code",
