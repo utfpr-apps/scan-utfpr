@@ -9,8 +9,8 @@ namespace Utfpr.Api.Scan.Controllers;
 [ApiController]
 public class MainController : ControllerBase
 {
-    protected IMediator _mediator;
-    protected INotificationContext _notificationContext;
+    protected readonly IMediator _mediator;
+    protected readonly INotificationContext _notificationContext;
 
     public MainController(IMediator mediator, INotificationContext notificationContext)
     {
