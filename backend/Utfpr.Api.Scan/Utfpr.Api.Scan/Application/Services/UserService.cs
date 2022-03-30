@@ -63,12 +63,12 @@ public class UserService : IUserService
     {
         var user = await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
 
-        if (user == null)
+        if (user != null)
             return user;
         
         user = await _userManager.FindByEmailAsync(email);
 
-        if (user == null)
+        if (user != null)
             return user;
 
         await _userManager.AddLoginAsync(user, info);

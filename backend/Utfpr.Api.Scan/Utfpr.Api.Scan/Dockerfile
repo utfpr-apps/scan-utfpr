@@ -1,20 +1,16 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /src
-COPY ["Utfpr.Api.Scan/Utfpr.Api.Scan.csproj", "Utfpr.Api.Scan/"]
-RUN dotnet restore "Utfpr.Api.Scan/Utfpr.Api.Scan.csproj"
-COPY . .
-WORKDIR "/src/Utfpr.Api.Scan"
-RUN dotnet build "Utfpr.Api.Scan.csproj" -c Release -o /app/build
+COPY *.csproj ./
+RUN dotnet restore
 
-FROM build AS publish
-RUN dotnet publish "Utfpr.Api.Scan.csproj" -c Release -o /app/publish
+COPY . ./
+RUN dotnet publish -c Release -o out
 
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Utfpr.Api.Scan.dll"]
+COPY --from=build-env /app/out .
+
+CMD ASPNETCORE_URLS="http://*:$PORT" dotnet Utfpr.Api.Scan.dll
