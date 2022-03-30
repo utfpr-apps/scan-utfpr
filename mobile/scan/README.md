@@ -23,7 +23,9 @@ Instalar os componentes do Flutter e do Dart
 No terminal do vscode executar o 
 
 ```flutter channel dev```
+
 ```flutter upgrade```
+
 ```flutter pub get```
 
 ## HowTo Debug
