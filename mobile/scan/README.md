@@ -21,6 +21,7 @@ samples, guidance on mobile development, and a full API reference.
 1. Instalar os componentes 
    - Flutter e do Dart
    - Material auxiliar para montagem de ambiente
+     - https://www.treinaweb.com.br/blog/configurando-ambiente-de-desenvolvimento-flutter
 
 2. Para rodar o projeto, tem os pré-requisitos de executar comandos específicos, no terminal do vscode executar o 
    - ```flutter channel dev```
