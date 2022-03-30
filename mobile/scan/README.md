@@ -4,23 +4,17 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-
 ## Projeto no VSCode
 
-1. Instalar os componentes do Flutter e do Dart
+1. Instalar os componentes 
+   - Flutter e do Dart
+   - Material auxiliar para montagem de ambiente
+     - https://www.treinaweb.com.br/blog/configurando-ambiente-de-desenvolvimento-flutter
 
-2. No terminal do vscode executar o 
+2. Para rodar o projeto, tem os pré-requisitos de executar comandos específicos, no terminal do vscode executar o 
    - ```flutter channel dev```
    - ```flutter upgrade```
    - ```flutter pub get```
