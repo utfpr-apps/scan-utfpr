@@ -18,15 +18,15 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Projeto no VSCode
 
-Instalar os componentes do Flutter e do Dart
+1.Instalar os componentes do Flutter e do Dart
 
-No terminal do vscode executar o 
+2.No terminal do vscode executar o 
 
-```flutter channel dev```
+2.1.```flutter channel dev```
 
-```flutter upgrade```
+2.2.```flutter upgrade```
 
-```flutter pub get```
+2.3.```flutter pub get```
 
 ## HowTo Debug
 
