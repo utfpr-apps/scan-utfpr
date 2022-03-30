@@ -154,6 +154,29 @@ namespace Utfpr.Api.Scan.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Utfpr.Api.Scan.Domain.Models.Ambientes.Ambiente", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CadastradoEm")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW()");
+
+                    b.Property<string>("CodigoSala")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<byte>("TamanhoBloco")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ambiente", (string)null);
+                });
+
             modelBuilder.Entity("Utfpr.Api.Scan.Domain.Models.Autenticacao.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
