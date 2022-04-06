@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:scan/modules/notification/pages/description_page.dart';
+import 'package:scan/modules/notification/pages/notificate_page.dart';
 import 'package:scan/shared/widgets/button.dart';
 
 import '../../shared/themes/app_colors.dart';
@@ -13,56 +15,37 @@ class NotificationPage extends StatefulWidget {
 }
 
 class _NotificationPageState extends State<NotificationPage> {
-  DateTime? _chosenDateTime;
+  int index = 0;
   @override
   Widget build(BuildContext context) {
+    List<Widget> FluxoPage = [
+      DescriptionPage(
+        buttonChild: Button(
+          title: "Notificar UTFPR",
+          onTap: () {
+            setState(() {
+              index++;
+            });
+          },
+        ),
+      ),
+      NotificatePage(buttonChild: Button(
+          title: "Confirmar data do exame",
+          onTap: () {
+            setState(() {
+              
+            });
+          },
+        ),
+      ),
+    ];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primary,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Center(
-            child: RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                style: AppTextStyles.normalRegular,
-                text: "Notificar a ",
-                children: [
-                  TextSpan(text: "UTFPR", style: AppTextStyles.normalBold),
-                ],
-              ),
-            ),
-          ),
-          Text(
-            "Qual a data do exame/diagnóstico?",
-            style: AppTextStyles.normalRegular,
-          ),
-          
-          Container(
-            height: 200,
-            child: CupertinoDatePicker(
-
-              use24hFormat: true,
-
-              initialDateTime: DateTime.now(),
-              onDateTimeChanged: (val) {
-                setState(
-                  () {
-                    _chosenDateTime = val;
-                  },
-                );
-              },
-            ),
-          ),
-          Button(
-            title: "Confirmar data do exame",
-            onTap: () {
-              Navigator.pushNamed(context, "block");
-            },
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25),
+        child: Expanded(child: FluxoPage[index]),
       ),
     );
   }

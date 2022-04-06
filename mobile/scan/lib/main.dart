@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:scan/modules/block/block_page.dart';
 import 'package:scan/modules/home/home_page.dart';
+import 'package:scan/modules/scanner/scanner_QR_Code_page.dart';
 import 'package:scan/modules/splash/splash_page.dart';
 import 'package:scan/modules/success/success_page.dart';
 import 'package:scan/shared/themes/app_colors.dart';
@@ -29,14 +30,16 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [const Locale('pt', 'BR')],
-      initialRoute: "home",
+      supportedLocales: [Locale('pt', 'BR')],
+      
+      initialRoute: "splash",
       routes: {
-        "splash": (context) => SplashPage(),
+        "scanner":(context) => const QRViewExample(),
+        "splash": (context) => const SplashPage(),
         "home": (context) => HomePage(),
-        "notification": (context) => NotificationPage(),
-        "success": (context) => SuccessPage(),
-        "block": (context) => BlockPage(),
+        "notification": (context) => const NotificationPage(),
+        "success": (context) => const SuccessPage(),
+        "block": (context) => const BlockPage(),
       },
     );
   }
