@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import "../styles/globals.css";
 
 import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
 
 const colors = {
   blackText: "#252733",
@@ -20,6 +21,7 @@ function MyApp({ Component, pageProps }) {
     <QueryClientProvider client={queryClient}>
       <ChakraProvider theme={theme}>
         <Navbar />
+        <Sidebar />
 
         <Component {...pageProps} />
       </ChakraProvider>
