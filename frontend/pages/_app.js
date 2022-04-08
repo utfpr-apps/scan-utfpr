@@ -1,5 +1,5 @@
 import React from "react";
-import { extendTheme, ChakraProvider } from "@chakra-ui/react";
+import { extendTheme, ChakraProvider, Flex } from "@chakra-ui/react";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 
@@ -10,6 +10,7 @@ import Sidebar from "../components/Sidebar";
 
 const colors = {
   blackText: "#252733",
+  greyText: "#9FA2B4",
 };
 
 const theme = extendTheme({ colors });
@@ -19,11 +20,14 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ChakraProvider theme={theme}>
+      <ChakraProvider theme={theme} resetCSS>
         <Navbar />
-        <Sidebar />
 
-        <Component {...pageProps} />
+        <Flex>
+          <Sidebar />
+
+          <Component {...pageProps} />
+        </Flex>
       </ChakraProvider>
     </QueryClientProvider>
   );
