@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 import { Box, Flex, Text } from "@chakra-ui/react";
 
@@ -47,28 +48,29 @@ const Sidebar = () => {
       position="sticky"
     >
       {links.map((link) => (
-        <Flex
-          key={link.id}
-          py="18px"
-          px="32px"
-          align="center"
-          cursor="pointer"
-          color={router.route === link.link ? "#FECC00" : "#A4A6B3"}
-          backgroundColor={
-            router.route === link.link ? "#f0f1f6" : "transparent"
-          }
-          _hover={{
-            cursor: "pointer",
-            color: "#FECC00",
-            backgroundColor: "#f0f1f6",
-          }}
-        >
-          {link.icon}
+        <Link key={link.id} href={link.link} passHref>
+          <Flex
+            py="18px"
+            px="32px"
+            align="center"
+            cursor="pointer"
+            color={router.route === link.link ? "#FECC00" : "#A4A6B3"}
+            backgroundColor={
+              router.route === link.link ? "#f0f1f6" : "transparent"
+            }
+            _hover={{
+              cursor: "pointer",
+              color: "#FECC00",
+              backgroundColor: "#f0f1f6",
+            }}
+          >
+            {link.icon}
 
-          <Text ml="24px" fontSize="14px">
-            {link.title}
-          </Text>
-        </Flex>
+            <Text ml="24px" fontSize="14px">
+              {link.title}
+            </Text>
+          </Flex>
+        </Link>
       ))}
     </Box>
   );
