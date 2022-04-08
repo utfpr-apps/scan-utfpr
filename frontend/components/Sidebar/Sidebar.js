@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-import { Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 
 import {
   MdDashboard,
@@ -40,7 +40,12 @@ const Sidebar = () => {
   const router = useRouter();
 
   return (
-    <Flex width="255px" height="calc(100vh - 93px)" direction="column">
+    <Box
+      width="255px"
+      height="calc(100vh - 93px)"
+      direction="column"
+      position="sticky"
+    >
       {links.map((link) => (
         <Flex
           key={link.id}
@@ -60,10 +65,12 @@ const Sidebar = () => {
         >
           {link.icon}
 
-          <Text ml="24px">{link.title}</Text>
+          <Text ml="24px" fontSize="14px">
+            {link.title}
+          </Text>
         </Flex>
       ))}
-    </Flex>
+    </Box>
   );
 };
 
