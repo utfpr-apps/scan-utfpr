@@ -7,7 +7,7 @@ import logoUTFPR from "../../public/assets/logo-utfpr.png";
 const Navbar = () => (
   <Flex
     position="sticky"
-    px="5%"
+    px="50px"
     py="20px"
     justify="space-between"
     width="100%"
