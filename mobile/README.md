@@ -1,3 +1,0 @@
-# scan-utfpr
-
-mobile
