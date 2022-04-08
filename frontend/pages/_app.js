@@ -1,5 +1,5 @@
 import React from "react";
-import { extendTheme, ChakraProvider, Flex } from "@chakra-ui/react";
+import { extendTheme, ChakraProvider, Flex, Box } from "@chakra-ui/react";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 
@@ -26,7 +26,9 @@ function MyApp({ Component, pageProps }) {
         <Flex>
           <Sidebar />
 
-          <Component {...pageProps} />
+          <Box width="100%">
+            <Component {...pageProps} />
+          </Box>
         </Flex>
       </ChakraProvider>
     </QueryClientProvider>
