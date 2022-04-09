@@ -1,7 +1,17 @@
-const { Flex } = require("@chakra-ui/react");
+import Head from "next/head";
+
+import LayoutRooms from "layouts/rooms/LayoutRooms";
 
 const Salas = () => {
-  return <Flex>page sala!</Flex>;
+  return (
+    <>
+      <Head>
+        <title>Salas e Ambientes - SCAN UTFPR</title>
+      </Head>
+
+      <LayoutRooms />
+    </>
+  );
 };
 
 export default Salas;
