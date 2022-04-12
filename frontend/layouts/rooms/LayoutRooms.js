@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import {
   Box,
   Text,
@@ -29,14 +31,18 @@ const LayoutRooms = () => {
   return (
     <PageLayout pageTitle="Salas e Ambientes">
       <Container my="25px" direction="column" flex={1} p="32px">
-        <Text color="blackText" fontSize="19px" fontWeight="bold">
-          Salas e Ambientes da UTFPR
-        </Text>
+        <Flex justify="space-between">
+          <Box>
+            <Text color="blackText" fontSize="19px" fontWeight="bold">
+              Salas e Ambientes da UTFPR
+            </Text>
 
-        <Text color="greyText" fontSize="12px" fontWeight={400} mt="8px">
-          Aqui você pode gerar os QRCodes para cada sala de aula ou ambiente da
-          UTFPR.
-        </Text>
+            <Text color="greyText" fontSize="12px" fontWeight={400} mt="8px">
+              Aqui você pode gerar os QRCodes para cada sala de aula ou ambiente
+              da UTFPR.
+            </Text>
+          </Box>
+        </Flex>
 
         <TableContainer mt="60px">
           <Table variant="simple">
@@ -67,7 +73,16 @@ const LayoutRooms = () => {
                 <Tr key={index}>
                   <Td>{room.acronym}</Td>
                   <Td>
-                    <IoQrCode />
+                    <Box ml="10px">
+                      <Button variant="ghost">
+                        <Image
+                          src="/assets/qrcode.png"
+                          height={31}
+                          width={31}
+                          alt="geração do qrcode"
+                        />
+                      </Button>
+                    </Box>
                   </Td>
                   <Td>{room.interval}</Td>
                   <Td isNumeric>
