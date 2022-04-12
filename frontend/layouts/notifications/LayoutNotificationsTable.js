@@ -83,6 +83,8 @@ const LayoutNotificationsTable = () => (
               Status
             </Text>
           </Th>
+
+          <Th></Th>
         </Tr>
       </Thead>
 

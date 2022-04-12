@@ -44,6 +44,8 @@ const LayoutRoomsTable = () => (
               Intervalo de Tempo
             </Text>
           </Th>
+
+          <Th></Th>
         </Tr>
       </Thead>
 
