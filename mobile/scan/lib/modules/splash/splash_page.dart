@@ -7,10 +7,18 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
+    Widget teste() {
+      Future.delayed(
+        Duration(milliseconds: 6400),
+        () {
+          Navigator.pushReplacementNamed(context, "home");
+        },
+      );
+      return Center(
         child: Lottie.asset("assets/anim/splash.json"),
-      ),
-    );
+      );
+    }
+
+    return Scaffold(body: teste());
   }
 }

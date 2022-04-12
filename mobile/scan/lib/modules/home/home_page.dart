@@ -1,4 +1,3 @@
-import 'package:animated_card/animated_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
@@ -37,13 +36,14 @@ class _HomePageState extends State<HomePage> {
               DrawerTiles(
                 imageAssetSouce: AppImages.qrCode,
                 text: "Ler QR Code",
-                ontap: () {},
+                ontap: () {Navigator.pushNamed(context, "scanner");},
               ),
               DrawerTiles(
                 imageAssetSouce: AppImages.destaque,
                 text: "Notificar COVID-19",
                 ontap: () {
                   Navigator.pushNamed(context, "notification");
+                  
                 },
               ),
               DrawerTiles(
@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
             Button(
               title: "Ler o QR Code",
               onTap: () {
-                Navigator.pushNamed(context, "block");
+                Navigator.pushNamed(context, "scanner");
               },
             ),
           ],
