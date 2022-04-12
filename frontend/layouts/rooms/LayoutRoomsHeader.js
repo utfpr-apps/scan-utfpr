@@ -1,4 +1,7 @@
-import { Box, Text, Flex } from "@chakra-ui/react";
+import { Box, Text, Flex, Button } from "@chakra-ui/react";
+
+import { FaFilter } from "react-icons/fa";
+import { BsSortUp } from "react-icons/bs";
 
 const LayoutRoomsHeader = () => (
   <Flex justify="space-between">
@@ -12,6 +15,15 @@ const LayoutRoomsHeader = () => (
         UTFPR.
       </Text>
     </Box>
+
+    <Flex color="greyText">
+      <Button variant="ghost" leftIcon={<FaFilter size={12} />}>
+        Ordenar
+      </Button>
+      <Button variant="ghost" leftIcon={<BsSortUp />}>
+        Filtrar
+      </Button>
+    </Flex>
   </Flex>
 );
 
