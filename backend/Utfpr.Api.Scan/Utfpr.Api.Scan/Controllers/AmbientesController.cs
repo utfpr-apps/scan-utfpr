@@ -25,4 +25,9 @@ public class AmbientesController : MainController
     [AllowAnonymous]
     public async Task<ActionResult<ICollection<AmbienteViewModel>>> ObterAmbientes()
         => await ExecuteQueryLista(new ObterAmbientesQuery());
+
+    [HttpGet("{id:guid}")]
+    [AllowAnonymous]
+    public async Task<ActionResult<AmbienteViewModel>> ObterAmbientePorId(Guid id)
+        => await ExecuteQueryPorId(new ObtemAmbientePorIdQuery(id));
 }

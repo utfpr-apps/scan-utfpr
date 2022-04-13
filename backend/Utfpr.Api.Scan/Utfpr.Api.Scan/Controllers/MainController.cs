@@ -51,4 +51,11 @@ public class MainController : ControllerBase
 
         return DefineCodigoResponse(result);
     }
+    
+    protected async Task<ActionResult<TViewModel>> ExecuteQueryPorId<TViewModel>(Query<TViewModel> query)
+    {
+        var result = await _mediator.Send(query);
+
+        return DefineCodigoResponse(result);
+    }
 }

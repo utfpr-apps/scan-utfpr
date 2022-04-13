@@ -10,4 +10,5 @@ public interface IRepository<T> where T : Entity
     Task<T?> ObterPorId(Guid id);
     Task<ICollection<T>> ObterTodos();
     Task<bool> Commit();
+    Task<bool> Existe(Guid id);
 }

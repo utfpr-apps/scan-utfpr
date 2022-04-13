@@ -12,4 +12,9 @@ public class AmbienteViewModel : BaseViewModel
         CodigoSala = codigoSala;
         TamanhoBloco = tamanhoBloco;
     }
+
+    public AmbienteViewModel()
+    {
+        
+    }
 }

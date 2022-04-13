@@ -82,4 +82,11 @@ public class Repository<T> : IRepository<T> where T : Entity
     {
         return !(await _context.SaveChangesAsync() < 1);
     }
+
+    public async Task<bool> Existe(Guid id)
+    {
+        return await _dbSet
+            .Where(i => i.Id.Equals(id))
+            .AnyAsync();
+    }
 }
