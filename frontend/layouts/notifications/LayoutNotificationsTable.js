@@ -1,7 +1,4 @@
-import Image from "next/image";
-
 import {
-  Box,
   Text,
   Table,
   Thead,
@@ -10,13 +7,10 @@ import {
   Th,
   Td,
   TableContainer,
-  Button,
-  Flex,
 } from "@chakra-ui/react";
 
-import { BiDotsVerticalRounded } from "react-icons/bi";
-
 import LayoutNotificationsBadge from "./LayoutNotificationsBadge";
+import LayoutNotificationsTableActions from "./LayoutNotificationsTableActions";
 
 const notifications = [
   {
@@ -83,6 +77,8 @@ const LayoutNotificationsTable = () => (
               Status
             </Text>
           </Th>
+
+          <Th></Th>
         </Tr>
       </Thead>
 
@@ -96,10 +92,9 @@ const LayoutNotificationsTable = () => (
             <Td>
               <LayoutNotificationsBadge status={notification.status} />
             </Td>
+
             <Td isNumeric>
-              <Button variant="ghost">
-                <BiDotsVerticalRounded />
-              </Button>
+              <LayoutNotificationsTableActions notification={notification} />
             </Td>
           </Tr>
         ))}

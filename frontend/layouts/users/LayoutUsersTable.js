@@ -53,6 +53,8 @@ const LayoutUsersTable = () => (
               Email
             </Text>
           </Th>
+
+          <Th></Th>
         </Tr>
       </Thead>
 

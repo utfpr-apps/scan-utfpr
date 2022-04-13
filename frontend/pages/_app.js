@@ -9,6 +9,7 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 
 const colors = {
+  primary: "#FECC00",
   blackText: "#252733",
   greyText: "#9FA2B4",
 };

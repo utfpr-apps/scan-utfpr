@@ -6,7 +6,7 @@ const LayoutNotificationsBadge = ({ status }) => {
   }
 
   if (status === 1) {
-    return <Badge colorScheme="yellow">EM ABERTO</Badge>;
+    return <Badge colorScheme="yellow">EM ANDAMENTO</Badge>;
   }
 
   if (status === 2) {
