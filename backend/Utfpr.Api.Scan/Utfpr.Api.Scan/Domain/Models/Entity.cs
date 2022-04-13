@@ -3,5 +3,5 @@
 public abstract class Entity
 {
     public Guid Id { get; set; }
-    public DateTime CadastradoEm { get; set; } = DateTime.Now;
+    public DateTime CadastradoEm { get; set; }
 }

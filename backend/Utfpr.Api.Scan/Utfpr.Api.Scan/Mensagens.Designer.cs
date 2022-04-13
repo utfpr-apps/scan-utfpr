@@ -59,5 +59,23 @@ namespace Utfpr.Api.Scan {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erro ao salvar operação.
+        /// </summary>
+        internal static string ErroAoSalvarOperacao {
+            get {
+                return ResourceManager.GetString("ErroAoSalvarOperacao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registro não encontrado.
+        /// </summary>
+        internal static string RegistroNaoEncontrado {
+            get {
+                return ResourceManager.GetString("RegistroNaoEncontrado", resourceCulture);
+            }
+        }
     }
 }
