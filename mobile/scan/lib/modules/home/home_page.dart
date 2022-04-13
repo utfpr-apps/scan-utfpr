@@ -34,6 +34,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey.shade300,
               ),
               DrawerTiles(
+                isSelected: true,
                 imageAssetSouce: AppImages.qrCode,
                 text: "Ler QR Code",
                 ontap: () {Navigator.pushNamed(context, "scanner");},

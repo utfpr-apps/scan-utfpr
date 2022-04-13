@@ -2,14 +2,16 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class QRViewExample extends StatefulWidget {
-  const QRViewExample({ Key? key }) : super(key: key);
+  const QRViewExample({Key? key}) : super(key: key);
 
   @override
   State<QRViewExample> createState() => _QRViewExampleState();
 }
+
 class _QRViewExampleState extends State<QRViewExample> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result;
@@ -30,24 +32,36 @@ class _QRViewExampleState extends State<QRViewExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            flex: 5,
-            child: QRView(
-              key: qrKey,
-              onQRViewCreated: _onQRViewCreated,
+      body: Stack(
+        children: [
+          Column(
+            children: <Widget>[
+              Expanded(
+                flex: 5,
+                child: QRView(
+                  key: qrKey,
+                  onQRViewCreated: _onQRViewCreated,
+                ),
+              ),
+              /*
+              Expanded(
+                flex: 1,
+                child: Center(
+                  child: (result != null)
+                      ? Text(
+                          'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
+                      : Text('Scan a code'),
+                ),
+              )*/
+            ],
+          ),
+          SizedBox(
+              width: MediaQuery.of(context).size.width,
+            child: Lottie.asset(
+              "assets/anim/QR_Code_Scan.json",
+              fit: BoxFit.none
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Center(
-              child: (result != null)
-                  ? Text(
-                      'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
-                  : Text('Scan a code'),
-            ),
-          )
         ],
       ),
     );
@@ -58,8 +72,8 @@ class _QRViewExampleState extends State<QRViewExample> {
 
     controller.scannedDataStream.listen((scanData) {
       setState(() async {
-        
-        await Navigator.pushReplacementNamed(context, "block").then((value) => dispose());
+        await Navigator.pushReplacementNamed(context, "block")
+            .then((value) => dispose());
         result = scanData;
       });
     });
@@ -70,7 +84,4 @@ class _QRViewExampleState extends State<QRViewExample> {
     controller?.dispose();
     super.dispose();
   }
-
 }
-
-

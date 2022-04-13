@@ -93,6 +93,7 @@ flutter:
     - assets/images/others/qrcode.png
     - assets/anim/splash.json
     - assets/anim/QR_Code.json
+    - assets/anim/QR_Code_Scan.json
     - assets/anim/checked.json
 
   #       - asset: fonts/Schyler-Regular.ttf

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -8,6 +7,11 @@ class AppTextStyles {
   static final normalLight = GoogleFonts.montserrat(
     fontSize: 20,
     fontWeight: FontWeight.w100,
+    color: AppColors.darkGray,
+  );
+  static final splashTittle = GoogleFonts.montserrat(
+    fontSize: 60,
+    fontWeight: FontWeight.bold,
     color: AppColors.darkGray,
   );
   static final normalBold = GoogleFonts.montserrat(

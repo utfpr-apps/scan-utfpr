@@ -1,23 +1,21 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../shared/themes/app_text_styles.dart';
-import '../../../shared/widgets/button.dart';
 
-class NotificatePage extends StatefulWidget {
+class AddExamePage extends StatefulWidget {
   final Widget buttonChild;
-  const NotificatePage({Key? key, required this.buttonChild}) : super(key: key);
+  const AddExamePage({ Key? key, required this.buttonChild }) : super(key: key);
 
   @override
-  State<NotificatePage> createState() => _NotificatePageState();
+  State<AddExamePage> createState() => _AddExamePageState();
 }
 
-class _NotificatePageState extends State<NotificatePage> {
-  DateTime? _chosenDateTime;
+class _AddExamePageState extends State<AddExamePage> {
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Center(
           child: RichText(
@@ -32,22 +30,19 @@ class _NotificatePageState extends State<NotificatePage> {
           ),
         ),
         Text(
-          "Qual a data do exame/diagnóstico?",
+          "Você possui o exame com o diagnóstico?",
+          textAlign: TextAlign.center,
           style: AppTextStyles.normalRegular,
         ),
-        SizedBox(
-          height: 200,
-          child: CupertinoDatePicker(
-            use24hFormat: true,
-            initialDateTime: DateTime.now(),
-            onDateTimeChanged: (val) {
-              setState(
-                () {
-                  _chosenDateTime = val;
-                },
-              );
-            },
-          ),
+        Text(
+          "Envie-nos uma foto ou o arquivo do exame realizado.",
+          textAlign: TextAlign.center,
+          style: AppTextStyles.normalRegular,
+        ),
+        Text(
+          "Tenha cuidado para que todas as informações fiquem bem legíveis",
+          textAlign: TextAlign.center,
+          style: AppTextStyles.normalRegular,
         ),
         widget.buttonChild,
       ],

@@ -8,8 +8,9 @@ class DrawerTiles extends StatelessWidget {
   final String text;
   final String imageAssetSouce;
   final VoidCallback? ontap;
+  final bool? isSelected;
   const DrawerTiles(
-      {Key? key, required this.text, required this.imageAssetSouce, this.ontap, this.milliseconds})
+      {Key? key, required this.text, required this.imageAssetSouce, this.ontap, this.milliseconds, this.isSelected})
       : super(key: key);
 
   @override
@@ -33,7 +34,7 @@ class DrawerTiles extends StatelessWidget {
                   fit: BoxFit.fitHeight,
                 ),
               ),
-              Text(text),
+              Text(text, style: TextStyle(fontWeight: ((isSelected != null) || (isSelected == true)) ? FontWeight.bold : FontWeight.normal),),
             ],
           ),
         ),
