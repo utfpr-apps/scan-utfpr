@@ -10,6 +10,8 @@ import {
 import { BiDotsVerticalRounded } from "react-icons/bi";
 
 import LayoutNotificationsTableActionsStudents from "./LayoutNotificationsTableActionsStudents";
+import LayoutNotificationsTableActionsRemoveNotification from "./LayoutNotificationsTableActionsRemoveNotification";
+import LayoutNotificationsTableActionsHandleStatus from "./LayoutNotificationsTableActionsHandleStatus";
 
 const LayoutNotificationsTableActions = ({ notification }) => (
   <Menu>
@@ -23,8 +25,12 @@ const LayoutNotificationsTableActions = ({ notification }) => (
     <MenuList>
       <LayoutNotificationsTableActionsStudents notification={notification} />
       <MenuDivider />
-      <MenuItem>Alterar status</MenuItem>
-      <MenuItem>Remover notificação</MenuItem>
+      <LayoutNotificationsTableActionsRemoveNotification
+        notification={notification}
+      />
+      <LayoutNotificationsTableActionsHandleStatus
+        notification={notification}
+      />
     </MenuList>
   </Menu>
 );
