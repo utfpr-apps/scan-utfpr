@@ -10,6 +10,7 @@ builder.Services.ConfigureDatabase(builder.Configuration);
 builder.Services.AddAuthenticationConfiguration();
 builder.Services.AdicionaDependencias();
 builder.Services.AdicionaCors();
+builder.Services.AddProfilesConfiguration();
 
 var app = builder.Build();
 

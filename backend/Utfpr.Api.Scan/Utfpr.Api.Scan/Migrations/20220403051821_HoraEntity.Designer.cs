@@ -12,8 +12,8 @@ using Utfpr.Api.Scan.Infrastructure.Data;
 namespace Utfpr.Api.Scan.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220320212006_Initial")]
-    partial class Initial
+    [Migration("20220403051821_HoraEntity")]
+    partial class HoraEntity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -154,6 +154,29 @@ namespace Utfpr.Api.Scan.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Utfpr.Api.Scan.Domain.Models.Ambientes.Ambiente", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CadastradoEm")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("NOW()");
+
+                    b.Property<string>("CodigoSala")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<byte>("TamanhoBloco")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ambiente", (string)null);
                 });
 
             modelBuilder.Entity("Utfpr.Api.Scan.Domain.Models.Autenticacao.ApplicationUser", b =>

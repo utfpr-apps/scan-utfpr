@@ -8,9 +8,9 @@ namespace Utfpr.Api.Scan.Application.Autenticacao.Commands;
 
 public class CadastrarUsuarioCommand : IRequest<CommandResult<UserViewModel>>
 {
-    public CadastrarUsuarioCommand(Guid id)
+    public CadastrarUsuarioCommand()
     {
-        Id = id;
+        Id = Guid.NewGuid();
     }
 
     [JsonIgnore]
