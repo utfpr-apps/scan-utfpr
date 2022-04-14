@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:lottie/lottie.dart';
 import 'package:scan/shared/themes/app_images.dart';
 
 import '../../shared/themes/app_colors.dart';
 import '../../shared/themes/app_text_styles.dart';
+import '../../shared/widgets/button.dart';
 import '../../shared/widgets/drawer_tiles.dart';
 
 class SuccessPage extends StatefulWidget {
@@ -32,13 +35,26 @@ class _SuccessPageState extends State<SuccessPage> {
                 height: 1,
                 color: Colors.grey.shade300,
               ),
-              const DrawerTiles(
+              DrawerTiles(
+                isSelected: true,
                 imageAssetSouce: AppImages.qrCode,
                 text: "Ler QR Code",
+                ontap: () {Navigator.pushNamed(context, "scanner");},
               ),
-              const DrawerTiles(
-                imageAssetSouce: AppImages.qrCode,
+              DrawerTiles(
+                imageAssetSouce: AppImages.destaque,
+                text: "Notificar COVID-19",
+                ontap: () {
+                  Navigator.pushNamed(context, "notification");
+                  
+                },
+              ),
+              DrawerTiles(
+                imageAssetSouce: AppImages.download,
                 text: "Sair do app",
+                ontap: () {
+                  SystemNavigator.pop();
+                },
               ),
             ],
           ),
@@ -57,32 +73,25 @@ class _SuccessPageState extends State<SuccessPage> {
                 textAlign: TextAlign.center,
                 text: TextSpan(
                   style: AppTextStyles.normalRegular,
-                  text: "Seu ",
+                  text: "",
                   children: [
-                    TextSpan(text: "Scan ", style: AppTextStyles.normalBold),
+                    TextSpan(text: "Tudo certo!", style: AppTextStyles.normalBold),
                     const TextSpan(
-                      text: "foi realiazdo com sucesso!\n\n\n",
+                      text: "\n\n\n",
                     ),
                   ],
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(20),
-              child: Icon(
-                Icons.qr_code_scanner,
-                size: 200,
-              ),
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Lottie.asset("assets/anim/checked.json"),
             ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Container(
-                child: const Text(
-                  "Ler o QR Code",
-                  textAlign: TextAlign.center,
-                ),
-                width: 300,
-              ),
+            Button(
+              title: "Concluir",
+              onTap: () {
+                Navigator.pushReplacementNamed(context, "home");
+              },
             ),
           ],
         ),

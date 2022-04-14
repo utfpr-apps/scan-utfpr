@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:scan/shared/widgets/button.dart';
 import '../../shared/themes/app_colors.dart';
+import '../../shared/themes/app_images.dart';
 import '../../shared/themes/app_text_styles.dart';
 import '../../shared/widgets/drawer_tiles.dart';
 
@@ -18,14 +20,14 @@ class _BlockPageState extends State<BlockPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: SafeArea(
-        child: Drawer(
+        child:Drawer(
           child: Column(
             children: [
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 60, vertical: 25),
                 child: Image.asset(
-                  "assets/images/logos/logo_utfpr.png",
+                  AppImages.logoUTFPR,
                   fit: BoxFit.fitHeight,
                 ),
               ),
@@ -33,7 +35,27 @@ class _BlockPageState extends State<BlockPage> {
                 height: 1,
                 color: Colors.grey.shade300,
               ),
-              
+              DrawerTiles(
+                isSelected: true,
+                imageAssetSouce: AppImages.qrCode,
+                text: "Ler QR Code",
+                ontap: () {Navigator.pushNamed(context, "scanner");},
+              ),
+              DrawerTiles(
+                imageAssetSouce: AppImages.destaque,
+                text: "Notificar COVID-19",
+                ontap: () {
+                  Navigator.pushNamed(context, "notification");
+                  
+                },
+              ),
+              DrawerTiles(
+                imageAssetSouce: AppImages.download,
+                text: "Sair do app",
+                ontap: () {
+                  SystemNavigator.pop();
+                },
+              ),
             ],
           ),
         ),
@@ -41,6 +63,7 @@ class _BlockPageState extends State<BlockPage> {
       appBar: AppBar(
         backgroundColor: AppColors.primary,
       ),
+    
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 50),
         child: Column(
@@ -86,7 +109,7 @@ class _BlockPageState extends State<BlockPage> {
             Button(
               title: "Realizar check-in",
               onTap: () {
-                Navigator.pushNamed(context, "block");
+                Navigator.pushNamed(context, "success");
               },
             )
           ],
