@@ -16,7 +16,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Setup workdir
     - name: Publish image
       run: |
         heroku container:push web -a $APP_NAME
