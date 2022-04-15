@@ -4,7 +4,7 @@ namespace Utfpr.Api.Scan.Configuration;
 
 public static class MigrateConfiguration
 {
-    public static WebApplication MigrateDatabase<T>(this WebApplication app) where T : DbContext
+    public static async Task<WebApplication> MigrateDatabase<T>(this WebApplication app) where T : DbContext
     {
         using(var scope = app.Services.CreateScope())
         {
@@ -12,7 +12,15 @@ public static class MigrateConfiguration
             try
             {
                 var db = services.GetRequiredService<T>();
-                db.Database.Migrate();
+                
+                var pendingMigrations = await db.Database.GetPendingMigrationsAsync();
+
+                if (pendingMigrations.Any())
+                {
+                    Console.WriteLine($"You have {pendingMigrations.Count()} pending migrations to apply.");
+                    Console.WriteLine("Applying pending migrations now");
+                    await db.Database.MigrateAsync();
+                }
             }
             catch (Exception ex)
             {
