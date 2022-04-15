@@ -12,12 +12,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Set-up workdir
-      working-directory: ./backend/Utfpr.Api.Scan/Utfpr.Api.Scan
     - name: Build and deploy the Docker image
       env: 
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         APP_NAME: ${{ 'utfpr-scan' }}
+    - name: Set-up workdir
+      working-directory: ./backend/Utfpr.Api.Scan/Utfpr.Api.Scan
       run: |
         heroku container:push web -a $APP_NAME
         heroku container:release web -a $APP_NAME
