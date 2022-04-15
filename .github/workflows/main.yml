@@ -17,7 +17,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Set-up workdir
-      working-directory: ./backend/Utfpr.Api.Scan/Utfpr.Api.Scan
       run: |
         heroku container:push web -a $APP_NAME
         heroku container:release web -a $APP_NAME
+      working-directory: ./backend/Utfpr.Api.Scan/Utfpr.Api.Scan
