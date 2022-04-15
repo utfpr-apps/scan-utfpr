@@ -9,15 +9,16 @@ on:
 jobs:
   build_utfpr_scan:
     runs-on: ubuntu-18.04
-    steps:
-    - name: Build and deploy the Docker image
-      env: 
+    env: 
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         APP_NAME: ${{ 'utfpr-scan' }}
+        working-directory: ./backend/Utfpr.Api.Scan/Utfpr.Api.Scan
+    steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Set-up workdir
+    - name: Setup workdir
+    - name: Publish image
       run: |
         heroku container:push web -a $APP_NAME
         heroku container:release web -a $APP_NAME
-      working-directory: ./backend/Utfpr.Api.Scan/Utfpr.Api.Scan
+      working-directory: ${{env.working-directory}}
