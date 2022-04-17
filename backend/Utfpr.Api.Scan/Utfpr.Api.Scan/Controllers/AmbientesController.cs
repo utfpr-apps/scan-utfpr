@@ -32,4 +32,9 @@ public class AmbientesController : MainController
     [HttpDelete("{id:guid}")]
     public async Task<ActionResult> DeletarAmbiente(Guid id)
         => await ExecuteCommandDelete(new DeletarAmbienteCommand(id));
+
+    [HttpPut("{id:guid}")]
+    public async Task<ActionResult<AmbienteViewModel>> AtualizarAmbiente(Guid id,
+        [FromBody] AtualizarAmbienteCommand command)
+        => await ExecuteCommandAtualizacao(command.AtribuirAmbienteId(id));
 }
