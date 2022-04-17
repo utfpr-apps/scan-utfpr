@@ -46,6 +46,17 @@ public class MainController : ControllerBase
 
         return DefineCodigoResponse(result.Result);
     }
+
+    protected async Task<ActionResult> ExecuteCommandDelete(Command command)
+    {
+        var result = await _mediator.Send(command);
+
+        if (result)
+            return NoContent();
+
+        return DefineCodigoResponse(result);
+    }
+
     
     protected async Task<ActionResult<ICollection<TViewModel>>> ExecuteQueryLista<TViewModel>(Query<ICollection<TViewModel>> query)
     {
