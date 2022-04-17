@@ -21,17 +21,19 @@ public class MainController : ControllerBase
 
     protected ActionResult DefineCodigoResponse(object response)
     {
-        if(_notificationContext.PossuiNotificacoes)
-            switch (_notificationContext.Messages.ToList()[0].Codigo)
-            {
+        if (_notificationContext.PossuiNotificacoes)
+        {
+            var error = new ErrorObjectMessage(_notificationContext.Code, _notificationContext.Messages);
+            switch (_notificationContext.Code)
+            { 
                 case HttpStatusCode.Unauthorized:
-                    return new UnauthorizedObjectResult("Não autorizado");
+                    return new UnauthorizedObjectResult(error);
                 case HttpStatusCode.BadRequest:
-                    string? message = _notificationContext.Messages.ToList()[0].ErrorMessage;
-                    return new BadRequestObjectResult($"Objeto de entrada inválido {message}");
+                    return new BadRequestObjectResult(error);
                 case HttpStatusCode.NotFound:
-                    return new NotFoundObjectResult("Registro não encontrado");
+                    return new NotFoundObjectResult(error);
             }
+        }
         return new OkObjectResult(response);
     }
 
@@ -45,7 +47,7 @@ public class MainController : ControllerBase
         return DefineCodigoResponse(result.Result);
     }
     
-    protected async Task<ActionResult<ICollection<TViewModel>>> ExecuteQueryLista<TViewModel>(Query<TViewModel> query)
+    protected async Task<ActionResult<ICollection<TViewModel>>> ExecuteQueryLista<TViewModel>(Query<ICollection<TViewModel>> query)
     {
         var result = await _mediator.Send(query);
 

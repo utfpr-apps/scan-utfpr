@@ -2,7 +2,7 @@
 
 namespace Utfpr.Api.Scan.Application.Ambiente.Queries;
 
-public class ObterAmbientesQuery : Query<AmbienteViewModel>
+public class ObterAmbientesQuery : Query<ICollection<AmbienteViewModel>>
 {
     
 }

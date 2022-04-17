@@ -66,7 +66,6 @@ public class Repository<T> : IRepository<T> where T : Entity
         if (registro != null)
             return registro;
         
-        _notificationContext.AdicionarNotificacoes(HttpStatusCode.NotFound, Mensagens.RegistroNaoEncontrado);
         return null;
     }
 

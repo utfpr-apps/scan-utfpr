@@ -2,7 +2,7 @@
 
 namespace Utfpr.Api.Scan.Application;
 
-public abstract class Query<TViewModel> : IRequest<ICollection<TViewModel>>
+public abstract class Query<TViewModel> : IRequest<TViewModel>
 {
     
 }
