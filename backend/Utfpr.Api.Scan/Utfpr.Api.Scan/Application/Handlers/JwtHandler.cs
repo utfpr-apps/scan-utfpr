@@ -9,68 +9,72 @@ using Utfpr.Api.Scan.Domain.Models.Autenticacao;
 
 namespace Utfpr.Api.Scan.Application.Handlers
 {
-	public class JwtHandler : IJwtHandler
-	{
-		private readonly IConfiguration _configuration;
-		private readonly UserManager<ApplicationUser> _userManager;
-		public JwtHandler(IConfiguration configuration, UserManager<ApplicationUser> userManager)
-		{
-			_userManager = userManager;
-			_configuration = configuration;
-		}
+    public class JwtHandler : IJwtHandler
+    {
+        private readonly IConfiguration _configuration;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-		private SigningCredentials GetSigningCredentials()
-		{
-			var key = Encoding.UTF8.GetBytes(_configuration.GetSection("Google:").Value);
-			var secret = new SymmetricSecurityKey(key);
+        public JwtHandler(IConfiguration configuration, UserManager<ApplicationUser> userManager)
+        {
+            _userManager = userManager;
+            _configuration = configuration;
+        }
 
-			return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
-		}
+        private SigningCredentials GetSigningCredentials()
+        {
+            var key = Encoding.UTF8.GetBytes(_configuration.GetSection("Google:").Value);
+            var secret = new SymmetricSecurityKey(key);
 
-		private async Task<List<Claim>> GetClaims(ApplicationUser user)
-		{
-			var claims = new List<Claim>
-			{
-				new Claim(ClaimTypes.Name, user.Email)
-			};
+            return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
+        }
 
-			var roles = await _userManager.GetRolesAsync(user);
-			foreach (var role in roles)
-			{
-				claims.Add(new Claim(ClaimTypes.Role, role));
-			}
+        private async Task<List<Claim>> GetClaims(ApplicationUser user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.Email)
+            };
 
-			return claims;
-		}
+            var roles = await _userManager.GetRolesAsync(user);
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
-		private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
-		{
-			var tokenOptions = new JwtSecurityToken(
-				claims: claims,
-				expires: DateTime.Now.AddHours(6),
-				signingCredentials: signingCredentials);
+            return claims;
+        }
 
-			return tokenOptions;
-		}
+        private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
+        {
+            var tokenOptions = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.Now.AddHours(6),
+                signingCredentials: signingCredentials);
 
-		public async Task<string> GenerateToken(ApplicationUser user)
-		{
-			var signingCredentials = GetSigningCredentials();
-			var claims = await GetClaims(user);
-			var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
-			var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+            return tokenOptions;
+        }
 
-			return token;
-		}
+        public async Task<string> GenerateToken(ApplicationUser user)
+        {
+            var signingCredentials = GetSigningCredentials();
+            var claims = await GetClaims(user);
+            var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
+            var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
 
-		public async Task<GoogleJsonWebSignature.Payload> VerifyGoogleToken(CadastrarUsuarioCommand externalAuth)
-		{
-			var settings = new GoogleJsonWebSignature.ValidationSettings()
-			{
-				Audience = new List<string>() { _configuration.GetValue<string>("Google:ClientId") }
-			};
-			var payload = await GoogleJsonWebSignature.ValidateAsync(externalAuth.IdToken, settings);
-			return payload;
-		}
-	}
+            return token;
+        }
+
+        public async Task<GoogleJsonWebSignature.Payload> VerifyGoogleToken(CadastrarUsuarioCommand externalAuth)
+        {
+            var settings = new GoogleJsonWebSignature.ValidationSettings()
+            {
+                Audience = new List<string>()
+                {
+                    Environment.GetEnvironmentVariable("GoogleClientId") ?? throw new ArgumentNullException("GoogleClientId")
+                }
+            };
+            var payload = await GoogleJsonWebSignature.ValidateAsync(externalAuth.IdToken, settings);
+            return payload;
+        }
+    }
 }
