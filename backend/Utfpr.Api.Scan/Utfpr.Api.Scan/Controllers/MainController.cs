@@ -47,6 +47,27 @@ public class MainController : ControllerBase
         return DefineCodigoResponse(result.Result);
     }
     
+    protected async Task<ActionResult<TViewModel>> ExecuteCommandAtualizacao<TViewModel>(Command<TViewModel> command)
+    {
+        var result = await _mediator.Send(command);
+
+        if (result.IsSuccess)
+            return Ok(result.Result);
+
+        return DefineCodigoResponse(result.Result);
+    }
+
+    protected async Task<ActionResult> ExecuteCommandDelete(Command command)
+    {
+        var result = await _mediator.Send(command);
+
+        if (result)
+            return NoContent();
+
+        return DefineCodigoResponse(result);
+    }
+
+    
     protected async Task<ActionResult<ICollection<TViewModel>>> ExecuteQueryLista<TViewModel>(Query<ICollection<TViewModel>> query)
     {
         var result = await _mediator.Send(query);

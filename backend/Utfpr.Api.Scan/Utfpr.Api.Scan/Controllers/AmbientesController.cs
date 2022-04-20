@@ -9,6 +9,7 @@ using Utfpr.Api.Scan.Application.Notification;
 namespace Utfpr.Api.Scan.Controllers;
 
 [Route("api/[controller]")]
+[AllowAnonymous]
 public class AmbientesController : MainController
 {
     public AmbientesController(IMediator mediator, INotificationContext notificationContext) : base(mediator, notificationContext)
@@ -16,18 +17,24 @@ public class AmbientesController : MainController
     }
 
     [HttpPost]
-    [AllowAnonymous]
     public async Task<ActionResult<AmbienteViewModel>> CreateAmbiente(
         [FromBody] CadastrarAmbienteCommand command)
         => await ExecuteCommandCadastro(command);
 
     [HttpGet]
-    [AllowAnonymous]
     public async Task<ActionResult<ICollection<AmbienteViewModel>>> ObterAmbientes()
         => await ExecuteQueryLista(new ObterAmbientesQuery());
 
     [HttpGet("{id:guid}")]
-    [AllowAnonymous]
     public async Task<ActionResult<AmbienteViewModel>> ObterAmbientePorId(Guid id)
         => await ExecuteQueryPorId(new ObtemAmbientePorIdQuery(id));
+
+    [HttpDelete("{id:guid}")]
+    public async Task<ActionResult> DeletarAmbiente(Guid id)
+        => await ExecuteCommandDelete(new DeletarAmbienteCommand(id));
+
+    [HttpPut("{id:guid}")]
+    public async Task<ActionResult<AmbienteViewModel>> AtualizarAmbiente(Guid id,
+        [FromBody] AtualizarAmbienteCommand command)
+        => await ExecuteCommandAtualizacao(command.AtribuirAmbienteId(id));
 }
