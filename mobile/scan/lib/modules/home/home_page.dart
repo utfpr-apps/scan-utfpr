@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
+import 'package:scan/Api/Api.dart';
 import 'package:scan/shared/themes/app_images.dart';
 import 'package:scan/shared/widgets/button.dart';
 
@@ -37,14 +38,15 @@ class _HomePageState extends State<HomePage> {
                 isSelected: true,
                 imageAssetSouce: AppImages.qrCode,
                 text: "Ler QR Code",
-                ontap: () {Navigator.pushNamed(context, "scanner");},
+                ontap: () {
+                  Navigator.pushNamed(context, "scanner");
+                },
               ),
               DrawerTiles(
                 imageAssetSouce: AppImages.destaque,
                 text: "Notificar COVID-19",
                 ontap: () {
                   Navigator.pushNamed(context, "notification");
-                  
                 },
               ),
               DrawerTiles(
@@ -93,7 +95,15 @@ class _HomePageState extends State<HomePage> {
             Button(
               title: "Ler o QR Code",
               onTap: () {
-                Navigator.pushNamed(context, "scanner");
+                API _api = API();
+                _api.hasAmbiente("V105").then((value) {
+                  if (value) {
+                    print("achei");
+                  } else {
+                    print("Não achei");
+                  }
+                });
+                //Navigator.pushNamed(context, "scanner");
               },
             ),
           ],
