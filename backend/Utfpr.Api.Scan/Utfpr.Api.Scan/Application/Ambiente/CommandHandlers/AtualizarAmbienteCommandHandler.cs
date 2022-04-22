@@ -30,7 +30,7 @@ public class AtualizarAmbienteCommandHandler : IRequestHandler<AtualizarAmbiente
             return new CommandResult<AmbienteViewModel>();
 
         registro.CodigoSala = request.CodigoSala;
-        registro.TamanhoBloco = registro.TamanhoBloco;
+        registro.TamanhoBloco = request.TamanhoBloco;
 
         if (await _ambienteRepository.Atualizar(registro))
             return new CommandResult<AmbienteViewModel>(true, _mapper.Map<AmbienteViewModel>(registro));
