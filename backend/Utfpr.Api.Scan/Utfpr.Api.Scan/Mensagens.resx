@@ -21,6 +21,12 @@
     <data name="RegistroNaoEncontrado" xml:space="preserve">
         <value>Registro não encontrado</value>
     </data>
+    <data name="BlocoMaiorQueZero" xml:space="preserve">
+        <value>O tamanho do bloco deve ser maior que zero</value>
+    </data>
+    <data name="NomeAmbienteNaoPodeSerVazio" xml:space="preserve">
+        <value>O nome do ambiente não pode ser vazio</value>
+    </data>
     <data name="ErroAoSalvarOperacao" xml:space="preserve">
         <value>Erro ao salvar operação</value>
     </data>

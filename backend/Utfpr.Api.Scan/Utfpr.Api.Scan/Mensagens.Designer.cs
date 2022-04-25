@@ -61,11 +61,29 @@ namespace Utfpr.Api.Scan {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to O tamanho do bloco deve ser maior que zero.
+        /// </summary>
+        internal static string BlocoMaiorQueZero {
+            get {
+                return ResourceManager.GetString("BlocoMaiorQueZero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Erro ao salvar operação.
         /// </summary>
         internal static string ErroAoSalvarOperacao {
             get {
                 return ResourceManager.GetString("ErroAoSalvarOperacao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O nome do ambiente não pode ser vazio.
+        /// </summary>
+        internal static string NomeAmbienteNaoPodeSerVazio {
+            get {
+                return ResourceManager.GetString("NomeAmbienteNaoPodeSerVazio", resourceCulture);
             }
         }
         
