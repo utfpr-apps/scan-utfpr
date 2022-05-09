@@ -6,9 +6,9 @@ using Utfpr.Api.Scan.Domain.Models;
 
 namespace Utfpr.Api.Scan.Application.Autenticacao.Commands;
 
-public class CadastrarUsuarioCommand : IRequest<CommandResult<UserViewModel>>
+public class CadastrarUsuarioAlunoCommand : IRequest<CommandResult<UsuarioAlunoLoginViewModel>>
 {
-    public CadastrarUsuarioCommand()
+    public CadastrarUsuarioAlunoCommand()
     {
         Id = Guid.NewGuid();
     }
@@ -16,7 +16,5 @@ public class CadastrarUsuarioCommand : IRequest<CommandResult<UserViewModel>>
     [JsonIgnore]
     public Guid Id { get; private set; }
     public string Provider { get; set; }
-    public string IdToken { get; set; }
-    public TipoUsuarioEnum TipoUsuario { get; set; }
-    public string RegistroAcademico { get; set; }
+    public string Token { get; set; }
 }

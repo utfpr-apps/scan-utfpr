@@ -5,13 +5,10 @@ namespace Utfpr.Api.Scan.Domain.Models.Autenticacao;
 
 public class ApplicationUser : IdentityUser
 {
-    public TipoUsuarioEnum TipoUsuario { get; set; }
-    public string RegistroAcademico { get; set; } = "";
-
-    public ApplicationUser(TipoUsuarioEnum tipoUsuario, string registroAcademico)
+    public string Nome { get; set; }
+    public ApplicationUser(string nome)
     {
-        TipoUsuario = tipoUsuario;
-        RegistroAcademico = registroAcademico;
+        Nome = nome;
     }
 
     public ApplicationUser() { }

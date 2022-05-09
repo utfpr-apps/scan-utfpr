@@ -6,6 +6,6 @@ namespace Utfpr.Api.Scan.Application.Handlers;
 
 public interface IJwtHandler
 {
-    Task<GoogleJsonWebSignature.Payload> VerifyGoogleToken(CadastrarUsuarioCommand externalAuth);
+    Task<GoogleJsonWebSignature.Payload> VerifyGoogleToken(string token);
     Task<string> GenerateToken(ApplicationUser user);
 }

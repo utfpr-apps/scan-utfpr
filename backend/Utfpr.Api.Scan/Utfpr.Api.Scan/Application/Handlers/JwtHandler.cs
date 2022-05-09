@@ -64,7 +64,7 @@ namespace Utfpr.Api.Scan.Application.Handlers
             return token;
         }
 
-        public async Task<GoogleJsonWebSignature.Payload> VerifyGoogleToken(CadastrarUsuarioCommand externalAuth)
+        public async Task<GoogleJsonWebSignature.Payload> VerifyGoogleToken(string token)
         {
             var settings = new GoogleJsonWebSignature.ValidationSettings()
             {
@@ -73,7 +73,7 @@ namespace Utfpr.Api.Scan.Application.Handlers
                     Environment.GetEnvironmentVariable("GoogleClientId") ?? throw new ArgumentNullException("GoogleClientId")
                 }
             };
-            var payload = await GoogleJsonWebSignature.ValidateAsync(externalAuth.IdToken, settings);
+            var payload = await GoogleJsonWebSignature.ValidateAsync(token, settings);
             return payload;
         }
     }
