@@ -12,10 +12,10 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   double tamanho = 0;
-  @override
   late AnimationController controller;
   late Animation<double> animation;
 
+  @override
   initState() {
     setState(() {});
     super.initState();
@@ -24,9 +24,9 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     Widget teste() {
       Future.delayed(
-        Duration(milliseconds: 6400),
+        const Duration(milliseconds: 6400),
         () {
-          Navigator.pushReplacementNamed(context, "home");
+          Navigator.pushReplacementNamed(context, "login");
         },
       );
       return Center(

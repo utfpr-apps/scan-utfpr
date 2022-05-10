@@ -26,6 +26,16 @@ class API {
     return false;
   }
 
+  Future<http.Response> login(AmbienteModel ambiente) {
+    return http.post(
+      Uri.parse('https://utfpr-scan.herokuapp.com/api/Ambientes'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: ambiente.toJson(),
+    );
+  }
+
   Future<http.Response> createAmbiente(AmbienteModel ambiente) {
     return http.post(
       Uri.parse('https://utfpr-scan.herokuapp.com/api/Ambientes'),

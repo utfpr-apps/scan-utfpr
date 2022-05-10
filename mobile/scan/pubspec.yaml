@@ -86,10 +86,10 @@ flutter:
     - assets/images/others/
     - assets/images/others/qrcode.png
     - assets/images/logos/logo_utfpr.png
-    - assets/images/logos/logo_utfpr.png
+    - assets/images/logos/google.png
     - assets/images/others/destaque.png
     - assets/images/others/download.png
-    - assets/images/others/home.png
+    - assets/images/others/login.png
     - assets/images/others/qrcode.png
     - assets/anim/splash.json
     - assets/anim/QR_Code.json
