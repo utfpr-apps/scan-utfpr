@@ -31,6 +31,13 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.ConfiguraCors();
-app.MigrateDatabase<ApplicationDbContext>();
+await app.MigrateDatabase<ApplicationDbContext>();
+
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    await serviceProvider.CriaEstruturaUsuarios();
+}
+
 
 app.Run();

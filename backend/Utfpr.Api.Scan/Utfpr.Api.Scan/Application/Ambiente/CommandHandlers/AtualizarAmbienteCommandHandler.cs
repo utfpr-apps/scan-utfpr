@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Net;
+using AutoMapper;
 using MediatR;
 using Utfpr.Api.Scan.Application.Ambiente.Commands;
 using Utfpr.Api.Scan.Application.Ambiente.Interfaces;
@@ -24,17 +25,32 @@ public class AtualizarAmbienteCommandHandler : IRequestHandler<AtualizarAmbiente
 
     public async Task<CommandResult<AmbienteViewModel>> Handle(AtualizarAmbienteCommand request, CancellationToken cancellationToken)
     {
+        if (!Validacoes(request)) return new CommandResult<AmbienteViewModel>(); 
+        
         var registro = await _ambienteRepository.ObterPorId(request.Id);
 
         if (registro == null)
             return new CommandResult<AmbienteViewModel>();
 
         registro.CodigoSala = request.CodigoSala;
-        registro.TamanhoBloco = registro.TamanhoBloco;
+        registro.TamanhoBloco = request.TamanhoBloco;
 
         if (await _ambienteRepository.Atualizar(registro))
             return new CommandResult<AmbienteViewModel>(true, _mapper.Map<AmbienteViewModel>(registro));
 
         return new CommandResult<AmbienteViewModel>();
+    }
+
+    private bool Validacoes(AtualizarAmbienteCommand command)
+    {
+        if (command.TamanhoBloco <= 0)
+            _notificationContext.AdicionarNotificacoes(HttpStatusCode.BadRequest, 
+                Mensagens.BlocoMaiorQueZero);
+        
+        if(string.IsNullOrWhiteSpace(command.CodigoSala))
+            _notificationContext.AdicionarNotificacoes(HttpStatusCode.BadRequest, 
+                Mensagens.NomeAmbienteNaoPodeSerVazio);
+
+        return !_notificationContext.PossuiNotificacoes;
     }
 }

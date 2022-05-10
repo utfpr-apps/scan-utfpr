@@ -2,7 +2,7 @@
 
 public enum TipoUsuarioEnum
 {
-    ALUNO = 0,
-    COORDENADOR = 1,
-    ESTAGIARIO = 2
+    ALUNO,
+    MASTER,
+    ADMINISTRADOR
 }

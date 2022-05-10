@@ -14,10 +14,36 @@ public class AuthController : MainController
     {
     }
     
-    [HttpPost]
+    [HttpPost("login-usuario-app")]
     [AllowAnonymous]
-    public async Task<ActionResult<UserViewModel>> CreateUser(
-        [FromBody] CadastrarUsuarioCommand command)
+    public async Task<ActionResult<UsuarioAlunoLoginViewModel>> CreateUser(
+        [FromBody] CadastrarUsuarioAlunoCommand command)
+    {
+        var result = await _mediator.Send(command);
+
+        if (result.IsSuccess)
+            return Ok(result.Result);
+
+        return DefineCodigoResponse(result.Result);
+    }
+    
+    [HttpPost("criar-usuario-admin")]
+    [Authorize(Roles = "Master")]
+    public async Task<ActionResult<UsuarioAlunoLoginViewModel>> CreateUserAdmin(
+        [FromBody] CadastrarUsuarioAdminCommand command)
+    {
+        var result = await _mediator.Send(command);
+
+        if (result.IsSuccess)
+            return Ok(result.Result);
+
+        return DefineCodigoResponse(result.Result);
+    }
+    
+    [HttpPost("login-usuario-admin")]
+    [AllowAnonymous]
+    public async Task<ActionResult<UsuarioAlunoLoginViewModel>> LoginUsuarioAdmin(
+        [FromBody] EfetuarAutenticacaoAdminCommand command)
     {
         var result = await _mediator.Send(command);
 
