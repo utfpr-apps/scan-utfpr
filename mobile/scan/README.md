@@ -31,7 +31,7 @@ Para subir o projeto, podemos utilizar o android studio, instalando o mesmo e cr
 
 ### Layout
 
-- [ ] Tela de Login
+- [x] Tela de Login
 - [x] Tela de Splash
 - [x] Tela Principal
 - [x] Menu Sanduiche
