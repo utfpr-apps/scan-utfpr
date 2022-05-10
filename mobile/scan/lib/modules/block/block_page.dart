@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:scan/Api/Api.dart';
+import 'package:scan/models/ambientes_model.dart';
 import 'package:scan/shared/widgets/button.dart';
 import '../../shared/themes/app_colors.dart';
 import '../../shared/themes/app_images.dart';
@@ -16,11 +18,13 @@ class BlockPage extends StatefulWidget {
 
 class _BlockPageState extends State<BlockPage> {
   List<int> horarios = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  final API _api = API();
+  int _index = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: SafeArea(
-        child:Drawer(
+        child: Drawer(
           child: Column(
             children: [
               Padding(
@@ -39,14 +43,15 @@ class _BlockPageState extends State<BlockPage> {
                 isSelected: true,
                 imageAssetSouce: AppImages.qrCode,
                 text: "Ler QR Code",
-                ontap: () {Navigator.pushNamed(context, "scanner");},
+                ontap: () {
+                  Navigator.pushNamed(context, "scanner");
+                },
               ),
               DrawerTiles(
                 imageAssetSouce: AppImages.destaque,
                 text: "Notificar COVID-19",
                 ontap: () {
                   Navigator.pushNamed(context, "notification");
-                  
                 },
               ),
               DrawerTiles(
@@ -63,7 +68,6 @@ class _BlockPageState extends State<BlockPage> {
       appBar: AppBar(
         backgroundColor: AppColors.primary,
       ),
-    
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 50),
         child: Column(
@@ -75,7 +79,7 @@ class _BlockPageState extends State<BlockPage> {
                 text: TextSpan(
                   style: AppTextStyles.normalRegular,
                   text:
-                      "Nesta sala que você vai utilizar, cada bloco de tempo é de:",
+                      "Você está na sala ${ModalRoute.of(context)!.settings.arguments as String} que você vai utilizar, cada bloco de tempo é de:",
                   children: [
                     TextSpan(
                         text: "\n50 min\n\n", style: AppTextStyles.bigBold),
@@ -92,7 +96,9 @@ class _BlockPageState extends State<BlockPage> {
               child: SizedBox(
                 height: 200,
                 child: CupertinoPicker(
-                  onSelectedItemChanged: (index) {},
+                  onSelectedItemChanged: (index) {
+                    _index = index;
+                  },
                   itemExtent: 70,
                   diameterRatio: 30,
                   looping: true,
@@ -109,7 +115,11 @@ class _BlockPageState extends State<BlockPage> {
             Button(
               title: "Realizar check-in",
               onTap: () {
-                Navigator.pushNamed(context, "success");
+                AmbienteModel teste = AmbienteModel(
+                    codigoSala: "Enviando teste", tamanhoBloco: _index);
+                _api
+                    .createAmbiente(teste)
+                    .then((value) => Navigator.pushNamed(context, "success"));
               },
             )
           ],

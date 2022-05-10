@@ -95,15 +95,8 @@ class _HomePageState extends State<HomePage> {
             Button(
               title: "Ler o QR Code",
               onTap: () {
-                API _api = API();
-                _api.hasAmbiente("V105").then((value) {
-                  if (value) {
-                    print("achei");
-                  } else {
-                    print("Não achei");
-                  }
-                });
-                //Navigator.pushNamed(context, "scanner");
+                
+                Navigator.pushNamed(context, "scanner");
               },
             ),
           ],

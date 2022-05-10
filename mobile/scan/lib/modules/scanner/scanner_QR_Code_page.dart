@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
+import '../../Api/Api.dart';
+
 class QRViewExample extends StatefulWidget {
   const QRViewExample({Key? key}) : super(key: key);
 
@@ -43,24 +45,12 @@ class _QRViewExampleState extends State<QRViewExample> {
                   onQRViewCreated: _onQRViewCreated,
                 ),
               ),
-              /*
-              Expanded(
-                flex: 1,
-                child: Center(
-                  child: (result != null)
-                      ? Text(
-                          'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
-                      : Text('Scan a code'),
-                ),
-              )*/
             ],
           ),
           SizedBox(
-              width: MediaQuery.of(context).size.width,
-            child: Lottie.asset(
-              "assets/anim/QR_Code_Scan.json",
-              fit: BoxFit.none
-            ),
+            width: MediaQuery.of(context).size.width,
+            child:
+                Lottie.asset("assets/anim/QR_Code_Scan.json", fit: BoxFit.none),
           ),
         ],
       ),
@@ -70,18 +60,33 @@ class _QRViewExampleState extends State<QRViewExample> {
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
 
-    controller.scannedDataStream.listen((scanData) {
-      setState(() async {
-        await Navigator.pushReplacementNamed(context, "block")
-            .then((value) => dispose());
-        result = scanData;
-      });
-    });
+    controller.scannedDataStream.listen(
+      (scanData) {
+        setState(
+          () async {
+            API _api = API();
+            _api.hasAmbiente(scanData.code!).then(
+              (value) {
+                if (value) {
+                  print("achei");
+                  dispose();
+                  Navigator.pushReplacementNamed(context, "block",
+                      arguments: scanData.code!);
+                } else {
+                  print("Não achei");
+                }
+              },
+            );
+          },
+        );
+      },
+    );
   }
 
   @override
   void dispose() {
     controller?.dispose();
+
     super.dispose();
   }
 }
