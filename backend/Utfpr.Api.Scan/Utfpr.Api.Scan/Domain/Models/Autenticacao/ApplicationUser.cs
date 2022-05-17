@@ -6,6 +6,7 @@ namespace Utfpr.Api.Scan.Domain.Models.Autenticacao;
 public class ApplicationUser : IdentityUser
 {
     public string Nome { get; set; }
+    public bool Inativo { get; set; } = false;
     public ApplicationUser(string nome)
     {
         Nome = nome;
