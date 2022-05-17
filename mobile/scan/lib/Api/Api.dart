@@ -6,18 +6,17 @@ import 'package:scan/models/ambientes_model.dart';
 class API {
   Future<bool> hasAmbiente(String codigoSala) async {
     final client = RetryClient(http.Client());
+    late String _json;
 
-    List<dynamic> teste;
-
-    List<AmbienteModel> _ambientesList;
-    String json;
+    List<AmbienteModel> _ambientesList = [];
     try {
-      json = await client
+      _json = await client
           .read(Uri.parse('https://utfpr-scan.herokuapp.com/api/Ambientes'));
-          teste = await jsonDecode(json);
-      for (var ambiente in teste) {
-        if (ambiente.codigoSala == codigoSala) {
-          
+
+      List teste = await json.decode(_json);
+
+      for (var item in teste) {
+        if (codigoSala == AmbienteModel.fromMap(item).codigoSala) {
           return true;
         }
       }
@@ -27,25 +26,23 @@ class API {
     return false;
   }
 
-  Future<http.Response> createAlbum(String title) {
+  Future<http.Response> login(AmbienteModel ambiente) {
     return http.post(
-      Uri.parse('https://jsonplaceholder.typicode.com/albums'),
+      Uri.parse('https://utfpr-scan.herokuapp.com/api/Ambientes'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: jsonEncode(<String, String>{
-        'title': title,
-      }),
+      body: ambiente.toJson(),
     );
   }
 
-  Future<void> teste() async {
-    final client = RetryClient(http.Client());
-    try {
-      print(client
-          .read(Uri.parse('https://utfpr-scan.herokuapp.com/api/Ambientes')));
-    } finally {
-      client.close();
-    }
+  Future<http.Response> createAmbiente(AmbienteModel ambiente) {
+    return http.post(
+      Uri.parse('https://utfpr-scan.herokuapp.com/api/Ambientes'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: ambiente.toJson(),
+    );
   }
 }

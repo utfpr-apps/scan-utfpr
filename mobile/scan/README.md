@@ -31,7 +31,7 @@ Para subir o projeto, podemos utilizar o android studio, instalando o mesmo e cr
 
 ### Layout
 
-- [ ] Tela de Login
+- [x] Tela de Login
 - [x] Tela de Splash
 - [x] Tela Principal
 - [x] Menu Sanduiche
@@ -43,6 +43,6 @@ Para subir o projeto, podemos utilizar o android studio, instalando o mesmo e cr
 ----
 ### Conectividade
 
-- [ ] Conectar com o banco de dados
-- [ ] Realizar o post na api
-- [ ] Envio de fotos dos exames 
+- [x] Testar o get e post na API
+- [ ] Fazer autenticação com o Google
+- [ ] Enviar de fotos dos exames
