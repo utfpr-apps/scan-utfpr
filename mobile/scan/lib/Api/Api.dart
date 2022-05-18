@@ -4,6 +4,23 @@ import 'package:http/retry.dart';
 import 'package:scan/models/ambientes_model.dart';
 
 class API {
+  Future<bool> hasAmbiente(String AmbienteId) async {
+    final client = RetryClient(http.Client());
+    late String _json;
+
+    List<AmbienteModel> _ambientesList = [];
+    try {
+      _json = await client.read(Uri.parse(
+          'https://utfpr-scan.herokuapp.com/api/Ambientes/$AmbienteId'));
+      List teste = await json.decode(_json);
+    } catch (e) {
+      print("erro: $e");
+    } finally {
+      client.close();
+    }
+    return false;
+  }
+  /*
   Future<bool> hasAmbiente(String codigoSala) async {
     final client = RetryClient(http.Client());
     late String _json;
@@ -25,6 +42,7 @@ class API {
     }
     return false;
   }
+  */
 
   Future<http.Response> login(AmbienteModel ambiente) {
     return http.post(
