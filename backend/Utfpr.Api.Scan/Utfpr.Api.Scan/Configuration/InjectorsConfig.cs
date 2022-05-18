@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Utfpr.Api.Scan.Application.Ambiente.Interfaces;
+using Utfpr.Api.Scan.Application.Checkin.Interfaces;
 using Utfpr.Api.Scan.Application.Handlers;
 using Utfpr.Api.Scan.Application.Notification;
 using Utfpr.Api.Scan.Application.Services;
@@ -16,6 +17,7 @@ public static class InjectorsConfig
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IJwtHandler, JwtHandler>();
         services.AddScoped<IAmbienteRepository, AmbienteRepository>();
+        services.AddScoped<ICheckinRepository, CheckinRepository>();
 
         return services;
     }

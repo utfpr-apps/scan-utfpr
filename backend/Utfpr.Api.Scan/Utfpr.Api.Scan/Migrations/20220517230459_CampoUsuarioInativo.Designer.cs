@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Utfpr.Api.Scan.Infrastructure.Data;
@@ -11,9 +12,10 @@ using Utfpr.Api.Scan.Infrastructure.Data;
 namespace Utfpr.Api.Scan.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220517230459_CampoUsuarioInativo")]
+    partial class CampoUsuarioInativo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -248,33 +250,6 @@ namespace Utfpr.Api.Scan.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Utfpr.Api.Scan.Domain.Models.Checkin.Checkin", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("AmbienteId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CadastradoEm")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("NOW()");
-
-                    b.Property<DateTime>("DataCheckin")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("DataFinalizacaoPermanencia")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AmbienteId");
-
-                    b.ToTable("Checkin", (string)null);
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -324,22 +299,6 @@ namespace Utfpr.Api.Scan.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Utfpr.Api.Scan.Domain.Models.Checkin.Checkin", b =>
-                {
-                    b.HasOne("Utfpr.Api.Scan.Domain.Models.Ambientes.Ambiente", "Ambiente")
-                        .WithMany("Checkins")
-                        .HasForeignKey("AmbienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Ambiente");
-                });
-
-            modelBuilder.Entity("Utfpr.Api.Scan.Domain.Models.Ambientes.Ambiente", b =>
-                {
-                    b.Navigation("Checkins");
                 });
 #pragma warning restore 612, 618
         }

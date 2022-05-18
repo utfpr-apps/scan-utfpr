@@ -4,6 +4,7 @@ public class Ambiente : Entity
 {
     public string CodigoSala { get; set; }
     public byte TamanhoBloco { get; set; }
+    public virtual ICollection<Checkin.Checkin> Checkins { get; set; }
 
     public Ambiente() { }
 

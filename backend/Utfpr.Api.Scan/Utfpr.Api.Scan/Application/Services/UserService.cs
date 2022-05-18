@@ -42,7 +42,9 @@ public class UserService : IUserService
         {
             Email = command.Email,
             UserName = command.Email,
-            EmailConfirmed = false
+            EmailConfirmed = false,
+            Nome = command.Nome,
+            Id = command.Id.ToString()
         };
 
         await _userManager.CreateAsync(user);
