@@ -12,11 +12,18 @@ public class CadastrarCheckinCommand : Command<CheckinViewModel>
     
     public byte QuantidadeBlocos { get; set; }
     public Guid AmbienteId { get; set; }
+    public string UserId { get; set; }
     
 
     public CadastrarCheckinCommand()
     {
         Id = Guid.NewGuid();
         DataCheckin = DateTime.Now; 
+    }
+
+    public CadastrarCheckinCommand AtribuirUserId(string userId)
+    {
+        UserId = userId;
+        return this;
     }
 }

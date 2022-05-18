@@ -36,6 +36,7 @@ public class CadastrarCheckinCommandHandler : IRequestHandler<CadastrarCheckinCo
         var checkin = new Domain.Models.Checkin.Checkin(request.DataCheckin, 
             request.DataCheckin.AddMinutes(quantidadeMinutosSaida), request.AmbienteId);
         checkin.Id = request.Id;
+        checkin.UsuarioId = request.UserId;
 
         if (await _checkinRepository.Adicionar(checkin))
             return new CommandResult<CheckinViewModel>(true,

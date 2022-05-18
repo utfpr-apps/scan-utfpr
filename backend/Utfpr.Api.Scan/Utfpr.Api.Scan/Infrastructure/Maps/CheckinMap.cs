@@ -23,6 +23,11 @@ public class CheckinMap : BaseEntityConfiguration<Checkin>
             .WithMany(c => c.Checkins)
             .HasForeignKey(f => f.AmbienteId);
 
+        builder
+            .HasOne(u => u.Usuario)
+            .WithMany(c => c.Checkins)
+            .HasForeignKey(u => u.UsuarioId);
+
         builder.ToTable(nameof(Checkin));
     }
 }
