@@ -32,7 +32,8 @@ namespace Utfpr.Api.Scan.Application.Handlers
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Email)
+                new(ClaimTypes.Name, user.Email),
+                new(ClaimTypes.NameIdentifier, user.Id)
             };
 
             var roles = await _userManager.GetRolesAsync(user);
