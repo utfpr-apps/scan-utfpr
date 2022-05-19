@@ -53,4 +53,17 @@ public class AuthController : MainController
 
         return DefineCodigoResponse(result.Result);
     }
+
+    [HttpDelete("{id:guid}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<ActionResult> DeletarUsuario(Guid id)
+    {
+        var command = new DeletarUsuarioAdminCommand(id);
+        var result = await _mediator.Send(command);
+
+        if (result.IsSuccess)
+            return NoContent();
+
+        return DefineCodigoResponse(result.Result);
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace Utfpr.Api.Scan.Infrastructure;
 
-public interface IRepository<T> where T : Entity
+public interface IRepository<T> where T : class
 {
     Task<bool> Adicionar(T entity);
     Task<bool> Deletar(Guid id);
