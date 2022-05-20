@@ -29,8 +29,7 @@ public class AuthController : MainController
     }
     
     [HttpPost("criar-usuario-admin")]
-    //[Authorize(Roles = "Master")]
-    [AllowAnonymous]
+    [Authorize(Roles = "Master")]
     public async Task<ActionResult<UsuarioAlunoLoginViewModel>> CreateUserAdmin(
         [FromBody] CadastrarUsuarioAdminCommand command)
     {
@@ -56,7 +55,7 @@ public class AuthController : MainController
     }
 
     [HttpDelete("{id:guid}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "ADMINISTRADOR")]
     public async Task<ActionResult> DeletarUsuario(Guid id)
     {
         var command = new DeletarUsuarioAdminCommand(id);
@@ -69,7 +68,7 @@ public class AuthController : MainController
     }
     
     [HttpGet]
-    [AllowAnonymous]
+    [Authorize(Roles = "ADMINISTRADOR")]
     public async Task<ActionResult<ICollection<UsuarioAdminViewModel>>> ObterAmbientes()
         => await ExecuteQueryLista(new ObterUsuariosAdminQuery());
 }
