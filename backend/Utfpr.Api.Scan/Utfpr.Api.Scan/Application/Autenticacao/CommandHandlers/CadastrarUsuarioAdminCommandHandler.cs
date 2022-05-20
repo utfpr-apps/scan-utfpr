@@ -27,7 +27,7 @@ public class
 
         if (result.Succeeded)
             return new CommandResult<UsuarioAdminViewModel>(true,
-                new UsuarioAdminViewModel(request.Id, request.Email));
+                new UsuarioAdminViewModel(request.Id, request.Email, false));
 
         return new CommandResult<UsuarioAdminViewModel>(_notificationContext.Messages, false);
     }

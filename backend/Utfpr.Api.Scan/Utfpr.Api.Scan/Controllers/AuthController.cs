@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Utfpr.Api.Scan.Application.Autenticacao.Commands;
+using Utfpr.Api.Scan.Application.Autenticacao.Queries;
 using Utfpr.Api.Scan.Application.Autenticacao.ViewModels;
 using Utfpr.Api.Scan.Application.Notification;
 
@@ -66,4 +67,9 @@ public class AuthController : MainController
 
         return DefineCodigoResponse(result.Result);
     }
+    
+    [HttpGet]
+    [AllowAnonymous]
+    public async Task<ActionResult<ICollection<UsuarioAdminViewModel>>> ObterAmbientes()
+        => await ExecuteQueryLista(new ObterUsuariosAdminQuery());
 }
