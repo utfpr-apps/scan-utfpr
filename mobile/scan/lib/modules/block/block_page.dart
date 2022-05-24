@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:scan/Api/Api.dart';
 import 'package:scan/models/ambientes_model.dart';
 import 'package:scan/shared/widgets/button.dart';
+import '../../models/checkin_post_model.dart';
 import '../../shared/themes/app_colors.dart';
 import '../../shared/themes/app_images.dart';
 import '../../shared/themes/app_text_styles.dart';
@@ -19,9 +20,12 @@ class BlockPage extends StatefulWidget {
 class _BlockPageState extends State<BlockPage> {
   List<int> horarios = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   final API _api = API();
+
   int _index = 0;
   @override
   Widget build(BuildContext context) {
+    final AmbienteModel _getModel =
+        ModalRoute.of(context)!.settings.arguments as AmbienteModel;
     return Scaffold(
       drawer: SafeArea(
         child: Drawer(
@@ -79,7 +83,7 @@ class _BlockPageState extends State<BlockPage> {
                 text: TextSpan(
                   style: AppTextStyles.normalRegular,
                   text:
-                      "Você está na sala ${ModalRoute.of(context)!.settings.arguments as String} que você vai utilizar, cada bloco de tempo é de:",
+                      "Você está na sala ${_getModel.codigoSala} que você vai utilizar, cada bloco de tempo é de:",
                   children: [
                     TextSpan(
                         text: "\n50 min\n\n", style: AppTextStyles.bigBold),
@@ -115,11 +119,18 @@ class _BlockPageState extends State<BlockPage> {
             Button(
               title: "Realizar check-in",
               onTap: () {
-                AmbienteModel teste = AmbienteModel(
-                    codigoSala: "Enviando teste", tamanhoBloco: _index);
-                _api
-                    .createAmbiente(teste)
-                    .then((value) => Navigator.pushNamed(context, "success"));
+                CheckinsPostModel teste = CheckinsPostModel(
+                  ambienteId: _getModel.id!,
+                  quantidadeBlocos: _index,
+                  userId: "Matheus",
+                );
+
+                _api.toCheckIn(teste).then((value) {
+                  print(value);
+                  if (value != null) {
+                    Navigator.pushNamed(context, "success");
+                  }
+                });
               },
             )
           ],
