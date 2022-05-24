@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:scan/modules/block/block_page.dart';
-import 'package:scan/modules/home/home_page.dart';
-import 'package:scan/modules/login/login_page.dart';
-import 'package:scan/modules/scanner/scanner_QR_Code_page.dart';
-import 'package:scan/modules/splash/splash_page.dart';
-import 'package:scan/modules/success/success_page.dart';
-import 'package:scan/shared/themes/app_colors.dart';
 
+import 'modules/block/block_page.dart';
+import 'modules/home/home_page.dart';
+import 'modules/login/login_page.dart';
 import 'modules/notification/notification_page.dart';
+import 'modules/scanner/scanner_QR_Code_page.dart';
+import 'modules/splash/splash_page.dart';
+import 'modules/success/success_page.dart';
+import 'shared/themes/app_colors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,11 +32,10 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: [Locale('pt', 'BR')],
-      
       initialRoute: "splash",
       routes: {
-        "scanner":(context) => const QRViewExample(),
-        "login":(context) => const LoginPage(),
+        "scanner": (context) => const QRViewExample(),
+        "login": (context) => const LoginPage(),
         "splash": (context) => const SplashPage(),
         "home": (context) => HomePage(),
         "notification": (context) => const NotificationPage(),

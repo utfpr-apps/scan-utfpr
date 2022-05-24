@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../../Api/Api.dart';
 
@@ -17,19 +17,10 @@ class QRViewExample extends StatefulWidget {
 class _QRViewExampleState extends State<QRViewExample> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result;
-  QRViewController? controller;
+  //QRViewController? controller;
 
   // In order to get hot reload to work we need to pause the camera if the platform
   // is android, or resume the camera if the platform is iOS.
-  @override
-  void reassemble() {
-    super.reassemble();
-    if (Platform.isAndroid) {
-      controller!.pauseCamera();
-    } else if (Platform.isIOS) {
-      controller!.resumeCamera();
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +31,27 @@ class _QRViewExampleState extends State<QRViewExample> {
             children: <Widget>[
               Expanded(
                 flex: 5,
-                child: QRView(
-                  key: qrKey,
-                  onQRViewCreated: _onQRViewCreated,
-                ),
+                child: MobileScanner(
+                    allowDuplicates: false,
+                    onDetect: (barcode, args) {
+                      if (barcode.rawValue == null) {
+                        debugPrint('Failed to scan Barcode');
+                      } else {
+                        final String code = barcode.rawValue!;
+                        API _api = API();
+                        _api.hasAmbiente(code).then(
+                          (value) {
+                            if (value.id != null) {
+                              print("achei");
+                              Navigator.pushReplacementNamed(context, "block",
+                                  arguments: value);
+                            } else {
+                              print("Não achei");
+                            }
+                          },
+                        );
+                      }
+                    }),
               ),
             ],
           ),
@@ -56,7 +64,7 @@ class _QRViewExampleState extends State<QRViewExample> {
       ),
     );
   }
-
+/*
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
 
@@ -64,19 +72,7 @@ class _QRViewExampleState extends State<QRViewExample> {
       (scanData) {
         setState(
           () async {
-            API _api = API();
-            _api.hasAmbiente(scanData.code!).then(
-              (value) {
-                if (value) {
-                  print("achei");
-                  dispose();
-                  Navigator.pushReplacementNamed(context, "block",
-                      arguments: scanData.code!);
-                } else {
-                  print("Não achei");
-                }
-              },
-            );
+            
           },
         );
       },
@@ -89,4 +85,5 @@ class _QRViewExampleState extends State<QRViewExample> {
 
     super.dispose();
   }
+  */
 }
