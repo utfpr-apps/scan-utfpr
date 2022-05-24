@@ -69,6 +69,6 @@ public class AuthController : MainController
     
     [HttpGet]
     //[Authorize(Roles = "ADMINISTRADOR")]
-    public async Task<ActionResult<ICollection<UsuarioAdminViewModel>>> ObterAmbientes()
+    public async Task<ActionResult<ICollection<UsuarioAdminViewModel>>> ObterUsuarios()
         => await ExecuteQueryLista(new ObterUsuariosAdminQuery());
 }
