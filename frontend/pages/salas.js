@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-import LayoutRooms from "layouts/rooms/LayoutRooms";
+import LayoutRooms from "layouts/ambients/LayoutRooms";
 
 const Salas = () => {
   return (

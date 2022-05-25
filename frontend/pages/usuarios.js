@@ -6,7 +6,7 @@ const Users = () => {
   return (
     <>
       <Head>
-        <title>Notificações - SCAN UTFPR</title>
+        <title>Usuários - SCAN UTFPR</title>
       </Head>
 
       <LayoutUsers />
