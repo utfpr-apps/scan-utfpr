@@ -1,11 +1,16 @@
+import dynamic from "next/dynamic";
+
 import { Box, Text, Flex, Button, useDisclosure } from "@chakra-ui/react";
 
 import { FaFilter } from "react-icons/fa";
 import { BsSortUp } from "react-icons/bs";
 import { MdAdd } from "react-icons/md";
-import LayoutUsetsTableModalCreate from "./LayoutUsetsTableModalCreate";
 
-const LayoutUsersHeader = () => {
+const LayoutAmbientsModalCreate = dynamic(() =>
+  import("./LayoutAmbientsModalCreate")
+);
+
+const LayoutRoomsHeader = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -13,12 +18,12 @@ const LayoutUsersHeader = () => {
       <Flex justify="space-between">
         <Box>
           <Text color="blackText" fontSize="19px" fontWeight="bold">
-            Usuários do Painel Administrativo
+            Ambientes da UTFPR
           </Text>
 
           <Text color="greyText" fontSize="12px" fontWeight={400} mt="8px">
-            Aqui você pode gerenciar os usuários que terão acesso ao painel do
-            SCAN
+            Aqui você pode gerar os QRCodes para cada sala de aula ou ambiente
+            da UTFPR.
           </Text>
         </Box>
 
@@ -30,7 +35,7 @@ const LayoutUsersHeader = () => {
             leftIcon={<MdAdd />}
             onClick={onOpen}
           >
-            Adicionar Usuário
+            Criar Ambiente
           </Button>
 
           <Button variant="ghost" leftIcon={<FaFilter size={12} />}>
@@ -42,9 +47,9 @@ const LayoutUsersHeader = () => {
         </Flex>
       </Flex>
 
-      <LayoutUsetsTableModalCreate isOpen={isOpen} onClose={onClose} />
+      <LayoutAmbientsModalCreate isOpen={isOpen} onClose={onClose} />
     </>
   );
 };
 
-export default LayoutUsersHeader;
+export default LayoutRoomsHeader;

@@ -5,7 +5,7 @@ import LayoutUsersHeader from "./LayoutUsersHeader";
 import LayoutUsersTable from "./LayoutUsersTable";
 
 const LayoutUsers = () => (
-  <PageLayout pageTitle="Notificações">
+  <PageLayout pageTitle="Usuários">
     <Container my="25px" direction="column" flex={1} p="32px">
       <LayoutUsersHeader />
 

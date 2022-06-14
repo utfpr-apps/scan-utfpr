@@ -125,11 +125,10 @@ class _BlockPageState extends State<BlockPage> {
                   userId: "Matheus",
                 );
 
-                _api.toCheckIn(teste).then((value) {
-                  print(value);
-                  if (value != null) {
-                    Navigator.pushNamed(context, "success");
-                  }
+                _api.toCheckIn(teste).whenComplete(() {
+                 
+                  Navigator.pushNamed(context, "success");
+                
                 });
               },
             )

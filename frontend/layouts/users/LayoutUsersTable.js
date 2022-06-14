@@ -10,70 +10,68 @@ import {
   TableContainer,
   Button,
   Flex,
+  Spinner,
 } from "@chakra-ui/react";
 
-import { BiDotsVerticalRounded } from "react-icons/bi";
+import { useQueryListUsers } from "service/users";
+import LayoutUsersTableActions from "./LayoutUsersTableActions";
 
-const users = [
-  {
-    name: "Felipe Maccari",
-    email: "felipemaccari@utfpr.edu.br",
-  },
-  {
-    name: "Felipe Maccari",
-    email: "felipemaccari@utfpr.edu.br",
-  },
-  {
-    name: "Felipe Maccari",
-    email: "felipemaccari@utfpr.edu.br",
-  },
-  {
-    name: "Felipe Maccari",
-    email: "felipemaccari@utfpr.edu.br",
-  },
-  {
-    name: "Felipe Maccari",
-    email: "felipemaccari@utfpr.edu.br",
-  },
-];
+const LayoutUsersTable = () => {
+  const { data, isLoading } = useQueryListUsers();
 
-const LayoutUsersTable = () => (
-  <TableContainer mt="60px">
-    <Table variant="simple">
-      <Thead>
-        <Tr>
-          <Th>
-            <Text color="greyText" fontSize="18px" fontWeight="semiBold">
-              Nome do Usuário
-            </Text>
-          </Th>
+  if (isLoading) {
+    return (
+      <Flex flex={1} direction="column" align="center" justify="center">
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="primary"
+          size="xl"
+        />
+      </Flex>
+    );
+  }
 
-          <Th>
-            <Text color="greyText" fontSize="18px" fontWeight="semiBold">
-              Email
-            </Text>
-          </Th>
+  return (
+    <TableContainer mt="60px">
+      <Table variant="simple">
+        <Thead>
+          <Tr>
+            <Th>
+              <Text color="greyText" fontSize="18px" fontWeight="semiBold">
+                Nome
+              </Text>
+            </Th>
 
-          <Th></Th>
-        </Tr>
-      </Thead>
+            <Th>
+              <Text color="greyText" fontSize="18px" fontWeight="semiBold">
+                Email
+              </Text>
+            </Th>
 
-      <Tbody>
-        {users.map((user, index) => (
-          <Tr key={index}>
-            <Td>{user.name}</Td>
-            <Td>{user.email}</Td>
-
-            <Td isNumeric>
-              <Button variant="ghost">
-                <BiDotsVerticalRounded />
-              </Button>
-            </Td>
+            <Th></Th>
           </Tr>
-        ))}
-      </Tbody>
-    </Table>
-  </TableContainer>
-);
+        </Thead>
+
+        <Tbody>
+          {data
+            .filter((user) => !user.inativo)
+            .map((user, index) => (
+              <Tr key={index}>
+                <Td>{user.nome}</Td>
+
+                <Td>{user.email}</Td>
+
+                <Td isNumeric>
+                  <LayoutUsersTableActions user={user} />
+                </Td>
+              </Tr>
+            ))}
+        </Tbody>
+      </Table>
+    </TableContainer>
+  );
+};
 
 export default LayoutUsersTable;
