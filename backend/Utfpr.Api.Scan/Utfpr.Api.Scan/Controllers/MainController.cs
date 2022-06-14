@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Security.Claims;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,11 +13,13 @@ public class MainController : ControllerBase
 {
     protected readonly IMediator _mediator;
     protected readonly INotificationContext _notificationContext;
+    protected string _userId;
 
     public MainController(IMediator mediator, INotificationContext notificationContext)
     {
         _mediator = mediator;
         _notificationContext = notificationContext;
+        _userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
     }
 
     protected ActionResult DefineCodigoResponse(object response)

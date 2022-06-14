@@ -12,14 +12,12 @@ namespace Utfpr.Api.Scan.Controllers;
 [AllowAnonymous]
 public class CheckinsController : MainController
 {
-    private string UserId { get; set; }
     public CheckinsController(IMediator mediator, INotificationContext notificationContext) : base(mediator, notificationContext)
     {
-        UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
     }
 
     [HttpPost]
     public async Task<ActionResult<CheckinViewModel>> RealizaCheckin(
         [FromBody] CadastrarCheckinCommand command)
-        => await ExecuteCommandCadastro(command.AtribuirUserId(UserId));
+        => await ExecuteCommandCadastro(command.AtribuirUserId(_userId));
 }
