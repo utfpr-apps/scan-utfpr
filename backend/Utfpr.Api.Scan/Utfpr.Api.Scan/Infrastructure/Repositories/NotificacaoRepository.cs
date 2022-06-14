@@ -1,4 +1,5 @@
-﻿using Utfpr.Api.Scan.Application.Notificacao.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Utfpr.Api.Scan.Application.Notificacao.Interfaces;
 using Utfpr.Api.Scan.Application.Notification;
 using Utfpr.Api.Scan.Domain.Models.Notificacao;
 using Utfpr.Api.Scan.Infrastructure.Data;
@@ -9,5 +10,14 @@ public class NotificacaoRepository : Repository<Notificacao>, INotificacaoReposi
 {
     public NotificacaoRepository(ApplicationDbContext context, INotificationContext notificationContext) : base(context, notificationContext)
     {
+    }
+
+    public async Task<ICollection<Notificacao>> ObterNotificacoesEmAberto()
+    {
+        return await DbSet
+            .AsQueryable()
+            .AsNoTracking()
+            .Where(t => t.DataFinalAfastamento < DateTime.UtcNow)
+            .ToListAsync();
     }
 }

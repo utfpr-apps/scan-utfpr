@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Utfpr.Api.Scan.Application.Notificacao.Commands;
+using Utfpr.Api.Scan.Application.Notificacao.Queries;
 using Utfpr.Api.Scan.Application.Notificacao.ViewModels;
 using Utfpr.Api.Scan.Application.Notification;
 
@@ -16,4 +17,9 @@ public class NotificacoesController : MainController
     [HttpPost]
     public async Task<ActionResult<NotificacaoViewModel>> CriaNotificacao(CadastrarNotificacaoCommand command)
         => await ExecuteCommandCadastro(command.AtribuirUsuarioId(_userId));
+
+    [HttpGet]
+    public async Task<ActionResult<ICollection<NotificacaoViewModel>>> ObterNotificacoesAbertas(
+        ObterNotificacoesAbertasQuery query)
+        => await ExecuteQueryLista(query);
 }

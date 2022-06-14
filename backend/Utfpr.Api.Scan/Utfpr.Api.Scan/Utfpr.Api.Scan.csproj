@@ -27,7 +27,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Application\Extensions" />
       <Folder Include="Migrations" />
     </ItemGroup>
 
