@@ -19,5 +19,5 @@ public class CheckinsController : MainController
     [HttpPost]
     public async Task<ActionResult<CheckinViewModel>> RealizaCheckin(
         [FromBody] CadastrarCheckinCommand command)
-        => await ExecuteCommandCadastro(command.AtribuirUserId(_userId));
+        => await ExecuteCommandCadastro(command.AtribuirUserId(UserId));
 }
