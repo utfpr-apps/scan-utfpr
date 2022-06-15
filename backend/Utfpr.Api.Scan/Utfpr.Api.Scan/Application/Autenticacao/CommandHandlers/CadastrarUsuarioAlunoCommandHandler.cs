@@ -21,12 +21,12 @@ public class CadastrarUsuarioAlunoCommandHandler : IRequestHandler<CadastrarUsua
 
     public async Task<CommandResult<UsuarioAlunoLoginViewModel>> Handle(CadastrarUsuarioAlunoCommand command, CancellationToken cancellationToken)
     {
-        var token = await _userService.EfetuarLoginAlunosGoogle(command);
+        var userDataViewModel = await _userService.EfetuarLoginAlunosGoogle(command);
 
-        if (_notificationContext.PossuiNotificacoes)
+        if (_notificationContext.PossuiNotificacoes || userDataViewModel == null)
             return new CommandResult<UsuarioAlunoLoginViewModel>(_notificationContext.Messages, false);
 
         return new CommandResult<UsuarioAlunoLoginViewModel>(true, 
-            new UsuarioAlunoLoginViewModel(command.Id, token));
+            new UsuarioAlunoLoginViewModel(userDataViewModel.Id, userDataViewModel));
     }
 }

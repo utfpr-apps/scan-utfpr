@@ -16,7 +16,7 @@ public class NotificacoesController : MainController
 
     [HttpPost]
     public async Task<ActionResult<NotificacaoViewModel>> CriaNotificacao(CadastrarNotificacaoCommand command)
-        => await ExecuteCommandCadastro(command.AtribuirUsuarioId(_userId));
+        => await ExecuteCommandCadastro(command.AtribuirUsuarioId(UserId));
 
     [HttpGet]
     public async Task<ActionResult<ICollection<NotificacaoViewModel>>> ObterNotificacoesAbertas(

@@ -2,10 +2,12 @@
 
 public class UsuarioAdminLoginViewModel
 {
-    public string Token { get; set; }
+    public Guid Id { get; set; }
+    public GoogleUserDataViewModel UserDataViewModel { get; set; }
 
-    public UsuarioAdminLoginViewModel(string token)
+    public UsuarioAdminLoginViewModel(Guid id, GoogleUserDataViewModel userDataViewModel)
     {
-        Token = token;
+        Id = id;
+        UserDataViewModel = userDataViewModel;
     }
 }
