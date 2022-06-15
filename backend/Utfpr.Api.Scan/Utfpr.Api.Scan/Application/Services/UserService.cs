@@ -65,17 +65,18 @@ public class UserService : IUserService
         {
             var payload = await _jwtHandler.VerifyGoogleToken(command.Token);
 
-        var user = await ObtemUsuarioAdminGoogle(payload, command);
+            var user = await ObtemUsuarioAdminGoogle(payload, command);
 
-        if (user != null)
-            return await _jwtHandler.GenerateToken(user);
+            if (user != null)
+                return await _jwtHandler.GenerateToken(user);
 
-        _notificationContext.AdicionarNotificacoes(HttpStatusCode.BadRequest, "Usuário não encontrado");
+            _notificationContext.AdicionarNotificacoes(HttpStatusCode.BadRequest, "Usuário não encontrado");
         }
         catch (InvalidJwtException e)
         {
             _notificationContext.AdicionarNotificacoes(HttpStatusCode.BadRequest, e.Message);
         }
+
         return string.Empty;
     }
 

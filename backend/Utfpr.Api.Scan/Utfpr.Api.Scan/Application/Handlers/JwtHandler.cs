@@ -21,7 +21,7 @@ public class JwtHandler : IJwtHandler
 
     private SigningCredentials GetSigningCredentials()
     {
-        var key = Encoding.UTF8.GetBytes(_configuration.GetSection("Google:").Value);
+        var key = Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECURITY_KEY") ?? throw new ArgumentNullException());
         var secret = new SymmetricSecurityKey(key);
 
         return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
