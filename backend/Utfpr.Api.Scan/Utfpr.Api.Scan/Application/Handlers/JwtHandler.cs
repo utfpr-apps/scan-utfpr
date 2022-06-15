@@ -48,7 +48,7 @@ public class JwtHandler : IJwtHandler
     {
         var tokenOptions = new JwtSecurityToken(
             claims: claims,
-            expires: DateTime.Now.AddHours(6),
+            expires: DateTime.Now.AddDays(7),
             signingCredentials: signingCredentials);
 
         return tokenOptions;
