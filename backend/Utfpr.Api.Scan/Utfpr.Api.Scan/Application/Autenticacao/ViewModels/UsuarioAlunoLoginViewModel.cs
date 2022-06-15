@@ -5,11 +5,11 @@ namespace Utfpr.Api.Scan.Application.Autenticacao.ViewModels;
 public class UsuarioAlunoLoginViewModel
 {
     public Guid Id { get; set; }    
-    public string Token { get; set; }
+    public GoogleUserDataViewModel UserDataViewModel { get; set; }
 
-    public UsuarioAlunoLoginViewModel(Guid id, string token)
+    public UsuarioAlunoLoginViewModel(Guid id, GoogleUserDataViewModel userDataViewModel)
     {
         Id = id;
-        Token = token;
+        UserDataViewModel = userDataViewModel;
     }
 }

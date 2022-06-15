@@ -2,6 +2,7 @@
 using Google.Apis.Auth;
 using Microsoft.AspNetCore.Identity;
 using Utfpr.Api.Scan.Application.Autenticacao.Commands;
+using Utfpr.Api.Scan.Application.Autenticacao.ViewModels;
 using Utfpr.Api.Scan.Application.Handlers;
 using Utfpr.Api.Scan.Application.Notification;
 using Utfpr.Api.Scan.Domain.Enumeradores;
@@ -23,7 +24,7 @@ public class UserService : IUserService
         _jwtHandler = jwtHandler;
     }
 
-    public async Task<string> EfetuarLoginAlunosGoogle(CadastrarUsuarioAlunoCommand command)
+    public async Task<GoogleUserDataViewModel?> EfetuarLoginAlunosGoogle(CadastrarUsuarioAlunoCommand command)
     {
         try
         {
@@ -32,8 +33,15 @@ public class UserService : IUserService
             var user = await ObtemUsuarioAlunoGoogle(payload, command);
 
             if (user != null)
-                return await _jwtHandler.GenerateToken(user);
-
+            {
+                var userViewModel = new GoogleUserDataViewModel();
+                userViewModel.Nome = payload.Name;
+                userViewModel.Token = await _jwtHandler.GenerateToken(user);
+                userViewModel.UrlFoto = payload.Picture;
+                userViewModel.Id = command.Id;
+                return userViewModel;
+            }
+            
             _notificationContext.AdicionarNotificacoes(HttpStatusCode.BadRequest, "Usuário não encontrado");
         }
         catch (InvalidJwtException e)
@@ -41,7 +49,7 @@ public class UserService : IUserService
             _notificationContext.AdicionarNotificacoes(HttpStatusCode.BadRequest, e.Message);
         }
 
-        return string.Empty;
+        return null;
     }
 
     public async Task<IdentityResult> CriarUsuarioAdmin(CadastrarUsuarioAdminCommand command)
@@ -59,7 +67,7 @@ public class UserService : IUserService
         return await _userManager.AddToRoleAsync(user, TipoUsuarioEnum.ADMINISTRADOR.ToString());
     }
 
-    public async Task<string> EfetuarLoginAdminGoogle(EfetuarAutenticacaoAdminCommand command)
+    public async Task<GoogleUserDataViewModel?> EfetuarLoginAdminGoogle(EfetuarAutenticacaoAdminCommand command)
     {
         try
         {
@@ -68,8 +76,15 @@ public class UserService : IUserService
             var user = await ObtemUsuarioAdminGoogle(payload, command);
 
             if (user != null)
-                return await _jwtHandler.GenerateToken(user);
-
+            {
+                var userViewModel = new GoogleUserDataViewModel();
+                userViewModel.Nome = payload.Name;
+                userViewModel.Token = await _jwtHandler.GenerateToken(user);
+                userViewModel.UrlFoto = payload.Picture;
+                userViewModel.Id = command.Id;
+                return userViewModel;
+            }
+            
             _notificationContext.AdicionarNotificacoes(HttpStatusCode.BadRequest, "Usuário não encontrado");
         }
         catch (InvalidJwtException e)
@@ -77,7 +92,7 @@ public class UserService : IUserService
             _notificationContext.AdicionarNotificacoes(HttpStatusCode.BadRequest, e.Message);
         }
 
-        return string.Empty;
+        return null;
     }
 
     private async Task<ApplicationUser?> ObtemUsuarioAlunoGoogle(GoogleJsonWebSignature.Payload payload,
