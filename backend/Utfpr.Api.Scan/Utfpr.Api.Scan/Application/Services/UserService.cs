@@ -25,14 +25,22 @@ public class UserService : IUserService
 
     public async Task<string> EfetuarLoginAlunosGoogle(CadastrarUsuarioAlunoCommand command)
     {
-        var payload = await _jwtHandler.VerifyGoogleToken(command.Token);
+        try
+        {
+            var payload = await _jwtHandler.VerifyGoogleToken(command.Token);
 
-        var user = await ObtemUsuarioAlunoGoogle(payload, command);
+            var user = await ObtemUsuarioAlunoGoogle(payload, command);
 
-        if (user != null)
-            return await _jwtHandler.GenerateToken(user);
+            if (user != null)
+                return await _jwtHandler.GenerateToken(user);
 
-        _notificationContext.AdicionarNotificacoes(HttpStatusCode.BadRequest, "Usuário não encontrado");
+            _notificationContext.AdicionarNotificacoes(HttpStatusCode.BadRequest, "Usuário não encontrado");
+        }
+        catch (InvalidJwtException e)
+        {
+            _notificationContext.AdicionarNotificacoes(HttpStatusCode.BadRequest, e.Message);
+        }
+
         return string.Empty;
     }
 
@@ -53,14 +61,21 @@ public class UserService : IUserService
 
     public async Task<string> EfetuarLoginAdminGoogle(EfetuarAutenticacaoAdminCommand command)
     {
-        var payload = await _jwtHandler.VerifyGoogleToken(command.Token);
-        
+        try
+        {
+            var payload = await _jwtHandler.VerifyGoogleToken(command.Token);
+
         var user = await ObtemUsuarioAdminGoogle(payload, command);
 
         if (user != null)
             return await _jwtHandler.GenerateToken(user);
-        
+
         _notificationContext.AdicionarNotificacoes(HttpStatusCode.BadRequest, "Usuário não encontrado");
+        }
+        catch (InvalidJwtException e)
+        {
+            _notificationContext.AdicionarNotificacoes(HttpStatusCode.BadRequest, e.Message);
+        }
         return string.Empty;
     }
 
@@ -98,12 +113,12 @@ public class UserService : IUserService
 
         if (user != null)
         {
-            await VinculaUsuarioLoginInfo(user, provider, subject);       
+            await VinculaUsuarioLoginInfo(user, provider, subject);
             return user;
         }
-        
+
         user = await _userManager.FindByLoginAsync(provider, subject);
-        
+
         return user ?? null;
     }
 
