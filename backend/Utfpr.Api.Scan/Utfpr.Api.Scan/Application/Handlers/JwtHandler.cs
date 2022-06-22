@@ -70,8 +70,10 @@ public class JwtHandler : IJwtHandler
         {
             Audience = new List<string>()
             {
-                Environment.GetEnvironmentVariable("GOOGLE_CLIENT_ID") ??
-                throw new ArgumentNullException("GOOGLE_CLIENT_ID")
+                Environment.GetEnvironmentVariable("GOOGLE_CLIENT_ID_WEB") ??
+                throw new ArgumentNullException("GOOGLE_CLIENT_ID_WEB"),
+                Environment.GetEnvironmentVariable("GOOGLE_CLIENT_ID_MOBILE") ??
+                throw new ArgumentNullException("GOOGLE_CLIENT_ID_MOBILE")
             }
         };
         var payload = await GoogleJsonWebSignature.ValidateAsync(token, settings);
