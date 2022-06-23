@@ -1,8 +1,7 @@
+import LayoutDashboard from "layouts/dashboard/LayoutDashboard";
 import Head from "next/head";
 
-import LayoutDashboard from "../layouts/dashboard/LayoutDashboard";
-
-export default function Home() {
+export default function Dashboard() {
   return (
     <>
       <Head>

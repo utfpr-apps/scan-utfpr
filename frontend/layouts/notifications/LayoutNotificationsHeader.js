@@ -1,7 +1,4 @@
-import { Box, Text, Flex, Button } from "@chakra-ui/react";
-
-import { FaFilter } from "react-icons/fa";
-import { BsSortUp } from "react-icons/bs";
+import { Box, Text, Flex } from "@chakra-ui/react";
 
 const LayoutNotificationsHeader = () => (
   <Flex justify="space-between">
@@ -15,15 +12,6 @@ const LayoutNotificationsHeader = () => (
         status e informações detalhadas
       </Text>
     </Box>
-
-    <Flex color="greyText">
-      <Button variant="ghost" leftIcon={<FaFilter size={12} />}>
-        Ordenar
-      </Button>
-      <Button variant="ghost" leftIcon={<BsSortUp />}>
-        Filtrar
-      </Button>
-    </Flex>
   </Flex>
 );
 

@@ -1,46 +1,50 @@
-import { useToast } from "@chakra-ui/react";
+import Image from "next/image";
 
-import { GoogleLogin } from "react-google-login";
+import { useRouter } from "next/router";
 
-import { useMutationLogin } from "../service/oAuthData";
+import { useSession, signIn } from "next-auth/react";
+
+import { Flex, Text, Button, Spinner } from "@chakra-ui/react";
+
+import mainIllustration from "public/assets/main.svg";
+import logoUTFPR from "public/assets/logo-utfpr.png";
 
 export default function Home() {
-  const toast = useToast();
+  const { data: session, status } = useSession();
 
-  const { mutate, isLoading } = useMutationLogin({
-    onSuccess: () => {
-      toast({
-        title: "deu boa, foi pro backend",
-        status: "success",
-        duration: 9000,
-        isClosable: true,
-      });
-    },
-  });
+  const router = useRouter();
 
-  const responseGoogle = ({ tokenObj }) => {
-    const { idpId, access_token } = tokenObj;
+  if (status === "loading") {
+    return (
+      <Flex height="100vh" align="center" justify="center">
+        <Spinner size="lg" color="yellow" />
+      </Flex>
+    );
+  }
 
-    mutate({
-      provider: idpId,
-      idToken: access_token,
-      tipoUsuario: 1,
-      registroAcademico: "a1272314",
-    });
-  };
+  if (status === "authenticated") {
+    router.replace("/");
+  }
 
   return (
-    <div>
-      <GoogleLogin
-        clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
-        buttonText="Login"
-        onSuccess={responseGoogle}
-        onFailure={responseGoogle}
-        cookiePolicy={"single_host_origin"}
-        isSignedIn={true}
-      />
+    <Flex height="100vh" align="center" justify="space-between" px="15%">
+      <Flex direction="column" justify="center">
+        <Flex align="flex-end">
+          <Text fontWeight="bold" fontSize="3rem" mr="20px">
+            SCAN
+          </Text>
+          <Image src={logoUTFPR} alt="logo UTFPR" height="98px" width="256px" />
+        </Flex>
+        <Text fontWeight="bold" fontSize="1.5rem" mr="20px"></Text>
 
-      {isLoading ? <div>ta logando, perae!</div> : null}
-    </div>
+        <Button mt="50px" type="submit" background="yellow" onClick={signIn}>
+          Acesse agora
+        </Button>
+      </Flex>
+
+      <Flex>
+        <Image src={mainIllustration} alt="logo UTFPR" />
+      </Flex>
+    </Flex>
   );
 }
