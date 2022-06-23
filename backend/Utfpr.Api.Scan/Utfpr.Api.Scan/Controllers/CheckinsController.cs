@@ -12,10 +12,8 @@ namespace Utfpr.Api.Scan.Controllers;
 [AllowAnonymous]
 public class CheckinsController : MainController
 {
-    private string UserId { get; set; }
     public CheckinsController(IMediator mediator, INotificationContext notificationContext) : base(mediator, notificationContext)
     {
-        UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
     }
 
     [HttpPost]

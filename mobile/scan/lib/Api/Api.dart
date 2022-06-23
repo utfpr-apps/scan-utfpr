@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:http/retry.dart';
@@ -23,7 +25,45 @@ class API {
     }
     return AmbienteModel();
   }
-  /*
+  
+
+  Future<http.Response> login(AmbienteModel ambiente) {
+    return http.post(
+      Uri.parse('https://utfpr-scan.herokuapp.com/api/Ambientes'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: ambiente.toJson(),
+    );
+  }
+
+  Future<void> toCheckIn(CheckinsPostModel ambiente) async {
+    final response = await http.post(
+      Uri.parse('https://utfpr-scan.herokuapp.com/api/Ambientes'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: ambiente.toJson(),
+    );
+   
+    
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
   Future<bool> hasAmbiente(String codigoSala) async {
     final client = RetryClient(http.Client());
     late String _json;
@@ -46,33 +86,3 @@ class API {
     return false;
   }
   */
-
-  Future<http.Response> login(AmbienteModel ambiente) {
-    return http.post(
-      Uri.parse('https://utfpr-scan.herokuapp.com/api/Ambientes'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: ambiente.toJson(),
-    );
-  }
-
-  Future<CheckinsPostModel> toCheckIn(CheckinsPostModel ambiente) async {
-    final response = await http.post(
-      Uri.parse('https://utfpr-scan.herokuapp.com/api/Ambientes'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: ambiente.toJson(),
-    );
-    if (response.statusCode == 200) {
-      // If the server did return a 201 CREATED response,
-      // then parse the JSON.
-      return CheckinsPostModel.fromJson(jsonDecode(response.body));
-    } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
-      throw Exception('Failed to create album.');
-    }
-  }
-}

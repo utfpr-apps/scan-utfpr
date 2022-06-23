@@ -20,10 +20,10 @@ public class EfetuarAutenticacaoAdminCommandHandler : IRequestHandler<EfetuarAut
 
     public async Task<CommandResult<UsuarioAdminLoginViewModel>> Handle(EfetuarAutenticacaoAdminCommand request, CancellationToken cancellationToken)
     {
-        var token = await _userService.EfetuarLoginAdminGoogle(request);
+        var userDataViewModel = await _userService.EfetuarLoginAdminGoogle(request);
 
-        if (!string.IsNullOrEmpty(token))
-            return new CommandResult<UsuarioAdminLoginViewModel>(true, new UsuarioAdminLoginViewModel(token));
+        if (!_notificationContext.PossuiNotificacoes && userDataViewModel != null)
+            return new CommandResult<UsuarioAdminLoginViewModel>(true, new UsuarioAdminLoginViewModel(userDataViewModel.Id, userDataViewModel));
 
         return new CommandResult<UsuarioAdminLoginViewModel>(_notificationContext.Messages);
     }

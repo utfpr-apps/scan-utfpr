@@ -1,8 +1,11 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:scan/modules/login/login_controller.dart';
 import 'package:scan/shared/themes/app_text_styles.dart';
 import 'package:scan/shared/widgets/social_button.dart';
+
+//https://petercoding.com/firebase/2021/05/24/using-google-sign-in-with-firebase-in-flutter/
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -28,7 +31,9 @@ class LoginPage extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 SocialLoginButton(onTap: () {
-                  Navigator.pushNamed(context,"home");
+                  LoginController _loginController = LoginController();
+                  _loginController.googleSignIn(context);
+                  
                 }),
               ],
             ),

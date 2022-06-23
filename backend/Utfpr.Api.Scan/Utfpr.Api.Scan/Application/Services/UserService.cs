@@ -2,6 +2,7 @@
 using Google.Apis.Auth;
 using Microsoft.AspNetCore.Identity;
 using Utfpr.Api.Scan.Application.Autenticacao.Commands;
+using Utfpr.Api.Scan.Application.Autenticacao.ViewModels;
 using Utfpr.Api.Scan.Application.Handlers;
 using Utfpr.Api.Scan.Application.Notification;
 using Utfpr.Api.Scan.Domain.Enumeradores;
@@ -23,17 +24,32 @@ public class UserService : IUserService
         _jwtHandler = jwtHandler;
     }
 
-    public async Task<string> EfetuarLoginAlunosGoogle(CadastrarUsuarioAlunoCommand command)
+    public async Task<GoogleUserDataViewModel?> EfetuarLoginAlunosGoogle(CadastrarUsuarioAlunoCommand command)
     {
-        var payload = await _jwtHandler.VerifyGoogleToken(command.Token);
+        try
+        {
+            var payload = await _jwtHandler.VerifyGoogleToken(command.Token);
 
-        var user = await ObtemUsuarioAlunoGoogle(payload, command);
+            var user = await ObtemUsuarioAlunoGoogle(payload, command);
 
-        if (user != null)
-            return await _jwtHandler.GenerateToken(user);
+            if (user != null)
+            {
+                var userViewModel = new GoogleUserDataViewModel();
+                userViewModel.Nome = payload.Name;
+                userViewModel.Token = await _jwtHandler.GenerateToken(user);
+                userViewModel.UrlFoto = payload.Picture;
+                userViewModel.Id = command.Id;
+                return userViewModel;
+            }
+            
+            _notificationContext.AdicionarNotificacoes(HttpStatusCode.BadRequest, "Usuário não encontrado");
+        }
+        catch (InvalidJwtException e)
+        {
+            _notificationContext.AdicionarNotificacoes(HttpStatusCode.BadRequest, e.Message);
+        }
 
-        _notificationContext.AdicionarNotificacoes(HttpStatusCode.BadRequest, "Usuário não encontrado");
-        return string.Empty;
+        return null;
     }
 
     public async Task<IdentityResult> CriarUsuarioAdmin(CadastrarUsuarioAdminCommand command)
@@ -51,17 +67,32 @@ public class UserService : IUserService
         return await _userManager.AddToRoleAsync(user, TipoUsuarioEnum.ADMINISTRADOR.ToString());
     }
 
-    public async Task<string> EfetuarLoginAdminGoogle(EfetuarAutenticacaoAdminCommand command)
+    public async Task<GoogleUserDataViewModel?> EfetuarLoginAdminGoogle(EfetuarAutenticacaoAdminCommand command)
     {
-        var payload = await _jwtHandler.VerifyGoogleToken(command.Token);
-        
-        var user = await ObtemUsuarioAdminGoogle(payload, command);
+        try
+        {
+            var payload = await _jwtHandler.VerifyGoogleToken(command.Token);
 
-        if (user != null)
-            return await _jwtHandler.GenerateToken(user);
-        
-        _notificationContext.AdicionarNotificacoes(HttpStatusCode.BadRequest, "Usuário não encontrado");
-        return string.Empty;
+            var user = await ObtemUsuarioAdminGoogle(payload, command);
+
+            if (user != null)
+            {
+                var userViewModel = new GoogleUserDataViewModel();
+                userViewModel.Nome = payload.Name;
+                userViewModel.Token = await _jwtHandler.GenerateToken(user);
+                userViewModel.UrlFoto = payload.Picture;
+                userViewModel.Id = command.Id;
+                return userViewModel;
+            }
+            
+            _notificationContext.AdicionarNotificacoes(HttpStatusCode.BadRequest, "Usuário não encontrado");
+        }
+        catch (InvalidJwtException e)
+        {
+            _notificationContext.AdicionarNotificacoes(HttpStatusCode.BadRequest, e.Message);
+        }
+
+        return null;
     }
 
     private async Task<ApplicationUser?> ObtemUsuarioAlunoGoogle(GoogleJsonWebSignature.Payload payload,
@@ -98,12 +129,12 @@ public class UserService : IUserService
 
         if (user != null)
         {
-            await VinculaUsuarioLoginInfo(user, provider, subject);       
+            await VinculaUsuarioLoginInfo(user, provider, subject);
             return user;
         }
-        
+
         user = await _userManager.FindByLoginAsync(provider, subject);
-        
+
         return user ?? null;
     }
 

@@ -20,7 +20,7 @@ public class AuthController : MainController
     public async Task<ActionResult<UsuarioAlunoLoginViewModel>> CreateUser(
         [FromBody] CadastrarUsuarioAlunoCommand command)
     {
-        var result = await _mediator.Send(command);
+        var result = await Mediator.Send(command);
 
         if (result.IsSuccess)
             return Ok(result.Result);
@@ -33,7 +33,7 @@ public class AuthController : MainController
     public async Task<ActionResult<UsuarioAlunoLoginViewModel>> CreateUserAdmin(
         [FromBody] CadastrarUsuarioAdminCommand command)
     {
-        var result = await _mediator.Send(command);
+        var result = await Mediator.Send(command);
 
         if (result.IsSuccess)
             return Ok(result.Result);
@@ -46,7 +46,7 @@ public class AuthController : MainController
     public async Task<ActionResult<UsuarioAlunoLoginViewModel>> LoginUsuarioAdmin(
         [FromBody] EfetuarAutenticacaoAdminCommand command)
     {
-        var result = await _mediator.Send(command);
+        var result = await Mediator.Send(command);
 
         if (result.IsSuccess)
             return Ok(result.Result);
@@ -59,7 +59,7 @@ public class AuthController : MainController
     public async Task<ActionResult> DeletarUsuario(Guid id)
     {
         var command = new DeletarUsuarioAdminCommand(id);
-        var result = await _mediator.Send(command);
+        var result = await Mediator.Send(command);
 
         if (result.IsSuccess)
             return NoContent();

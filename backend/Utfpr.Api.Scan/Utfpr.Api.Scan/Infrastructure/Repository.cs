@@ -8,7 +8,7 @@ namespace Utfpr.Api.Scan.Infrastructure;
 
 public class Repository<T> : IRepository<T> where T : Entity
 {
-    private readonly DbSet<T> _dbSet;
+    protected readonly DbSet<T> DbSet;
     private readonly ApplicationDbContext _context;
     private readonly INotificationContext _notificationContext;
 
@@ -16,12 +16,12 @@ public class Repository<T> : IRepository<T> where T : Entity
     {
         _context = context;
         _notificationContext = notificationContext;
-        _dbSet = context.Set<T>();
+        DbSet = context.Set<T>();
     }
 
     public async Task<bool> Adicionar(T entity)
     {
-        await _dbSet.AddAsync(entity);
+        await DbSet.AddAsync(entity);
 
         if (await Commit())
             return true;
@@ -33,14 +33,14 @@ public class Repository<T> : IRepository<T> where T : Entity
 
     public async Task<bool> Deletar(Guid id)
     {
-        var registro = await _dbSet.FirstOrDefaultAsync(t => t.Id.Equals(id));
+        var registro = await DbSet.FirstOrDefaultAsync(t => t.Id.Equals(id));
         if (registro == null)
         {
             _notificationContext.AdicionarNotificacoes(HttpStatusCode.NotFound, Mensagens.RegistroNaoEncontrado);
             return false;
         }
         
-        _dbSet.Remove(registro);
+        DbSet.Remove(registro);
         if (await Commit())
             return true;
         
@@ -51,7 +51,7 @@ public class Repository<T> : IRepository<T> where T : Entity
 
     public async Task<bool> Atualizar(T entity)
     {
-        _dbSet.Update(entity);
+        DbSet.Update(entity);
         if (await Commit())
             return true;
         
@@ -62,7 +62,7 @@ public class Repository<T> : IRepository<T> where T : Entity
 
     public async Task<T?> ObterPorId(Guid id)
     {
-        var registro = await _dbSet.FirstOrDefaultAsync(t => t.Id.Equals(id));
+        var registro = await DbSet.FirstOrDefaultAsync(t => t.Id.Equals(id));
         if (registro != null)
             return registro;
         
@@ -71,7 +71,7 @@ public class Repository<T> : IRepository<T> where T : Entity
 
     public async Task<ICollection<T>> ObterTodos()
     {
-        return await _dbSet
+        return await DbSet
             .AsQueryable()
             .AsNoTracking()
             .ToListAsync();
@@ -84,7 +84,7 @@ public class Repository<T> : IRepository<T> where T : Entity
 
     public async Task<bool> Existe(Guid id)
     {
-        return await _dbSet
+        return await DbSet
             .Where(i => i.Id.Equals(id))
             .AnyAsync();
     }
