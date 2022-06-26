@@ -79,7 +79,6 @@ const SidebarContent = () => {
 };
 
 const Sidebar = ({ variant, isOpen, toggleSidebar }) => {
-  console.log(variant);
   if (variant === "sidebar") {
     return (
       <Box

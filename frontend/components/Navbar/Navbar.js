@@ -38,8 +38,6 @@ const NavbarUserInformation = ({ user }) => (
 const Navbar = ({ showSidebarButton = true, toggleSidebar }) => {
   const { data, status } = useSession();
 
-  console.log(data);
-
   return (
     <Flex
       position="sticky"
