@@ -18,11 +18,11 @@ public class NotificacoesController : MainController
     public async Task<ActionResult<NotificacaoViewModel>> CriaNotificacao(CadastrarNotificacaoCommand command)
         => await ExecuteCommandCadastro(command.AtribuirUsuarioId(UserId));
 
-    [HttpGet]
+    [HttpGet("notificacoes-abertas")]
     public async Task<ActionResult<ICollection<NotificacaoViewModel>>> ObterNotificacoesAbertas()
         => await ExecuteQueryLista(new ObterNotificacoesAbertasQuery());
 
-    [HttpGet]
+    [HttpGet("notificacoes")]
     public async Task<ActionResult<ICollection<NotificacaoViewModel>>> ObterNotificacoes()
         => await ExecuteQueryLista(new ObterNotificacoesQuery());
     
