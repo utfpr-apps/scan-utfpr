@@ -25,4 +25,8 @@ public class NotificacoesController : MainController
     [HttpGet]
     public async Task<ActionResult<ListaNotificacaoViewModel>> ObterNotificacoes()
         => await ExecuteQueryPorId(new ObterNotificacoesQuery());
+
+    [HttpGet("{id:guid}/emails")]
+    public async Task<ActionResult<ListaEmailContatoNotificacaoViewModel>> ObterListaEmailContato(Guid id)
+        => await ExecuteQueryPorId(new ObterListaEmailsContatoQuery(id));
 }
