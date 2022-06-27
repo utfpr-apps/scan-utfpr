@@ -23,7 +23,6 @@ public class NotificacoesController : MainController
         => await ExecuteQueryLista(new ObterNotificacoesAbertasQuery());
 
     [HttpGet]
-    public async Task<ActionResult<ICollection<NotificacaoViewModel>>> ObterNotificacoes()
-        => await ExecuteQueryLista(new ObterNotificacoesQuery());
-    
+    public async Task<ActionResult<ListaNotificacaoViewModel>> ObterNotificacoes()
+        => await ExecuteQueryPorId(new ObterNotificacoesQuery());
 }

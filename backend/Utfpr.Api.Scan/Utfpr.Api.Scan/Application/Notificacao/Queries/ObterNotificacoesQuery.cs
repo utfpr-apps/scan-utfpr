@@ -2,7 +2,7 @@
 
 namespace Utfpr.Api.Scan.Application.Notificacao.Queries;
 
-public class ObterNotificacoesQuery : Query<ICollection<NotificacaoViewModel>>
+public class ObterNotificacoesQuery : Query<ListaNotificacaoViewModel>
 {
     
 }
