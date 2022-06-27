@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-import LayoutRooms from "layouts/ambients/LayoutRooms";
+import LayoutAmbients from "layouts/ambients/LayoutAmbients";
 
 const Salas = () => {
   return (
@@ -9,7 +9,7 @@ const Salas = () => {
         <title>Salas e Ambientes - SCAN UTFPR</title>
       </Head>
 
-      <LayoutRooms />
+      <LayoutAmbients />
     </>
   );
 };

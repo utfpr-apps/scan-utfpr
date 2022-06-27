@@ -1,3 +1,4 @@
+import MainLayout from "components/MainLayout";
 import PageLayout from "components/PageLayout";
 
 import LayoutDashboardNotificationList from "./LayoutDashboardNotificationList";
@@ -5,11 +6,13 @@ import LayoutDashboardResume from "./LayoutDashboardResume";
 
 const LayoutDashboard = () => {
   return (
-    <PageLayout pageTitle="Página Inicial">
-      <LayoutDashboardResume />
+    <MainLayout>
+      <PageLayout pageTitle="Página Inicial">
+        <LayoutDashboardResume />
 
-      <LayoutDashboardNotificationList />
-    </PageLayout>
+        <LayoutDashboardNotificationList />
+      </PageLayout>
+    </MainLayout>
   );
 };
 

@@ -10,7 +10,11 @@ const LayoutUsersHeader = () => {
 
   return (
     <>
-      <Flex justify="space-between">
+      <Flex
+        justify="space-between"
+        direction={["column", "column", "row"]}
+        align={["center", "center", "flex-start"]}
+      >
         <Box>
           <Text color="blackText" fontSize="19px" fontWeight="bold">
             Usuários do Painel Administrativo
@@ -22,22 +26,18 @@ const LayoutUsersHeader = () => {
           </Text>
         </Box>
 
-        <Flex color="greyText">
+        <Flex
+          color="greyText"
+          mt={["30px", "30px", "0"]}
+          mr={["0", "0", "30px"]}
+        >
           <Button
             background="primary"
             color="blackText"
-            mr="30px"
             leftIcon={<MdAdd />}
             onClick={onOpen}
           >
             Adicionar Usuário
-          </Button>
-
-          <Button variant="ghost" leftIcon={<FaFilter size={12} />}>
-            Ordenar
-          </Button>
-          <Button variant="ghost" leftIcon={<BsSortUp />}>
-            Filtrar
           </Button>
         </Flex>
       </Flex>

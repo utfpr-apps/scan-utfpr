@@ -12,7 +12,6 @@ import {
   Flex,
   Text,
   useToast,
-  Checkbox,
 } from "@chakra-ui/react";
 
 const students = [
@@ -82,11 +81,6 @@ const LayoutNotificationsTableActionsStudents = ({ notification }) => {
                   </Flex>
                 ))}
               </Flex>
-
-              <Checkbox defaultChecked mt="50px" ml="25px">
-                Alterar o status da notificação para{" "}
-                <strong>Em Andamento</strong>
-              </Checkbox>
             </Flex>
           </ModalBody>
 
