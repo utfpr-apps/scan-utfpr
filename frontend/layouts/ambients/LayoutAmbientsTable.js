@@ -71,7 +71,7 @@ const LayoutAmbientsTable = () => {
               <Td>{ambient.codigoSala}</Td>
               <Td>
                 <Box ml="10px">
-                  <Link href={`/qrcode/${ambient.codigoSala}`} passHref>
+                  <Link href={`/qrcode/${ambient.id}`} passHref>
                     <Button variant="ghost">
                       <Image
                         src="/assets/qrcode.png"
