@@ -16,7 +16,7 @@ export const useQueryListOpenNotifications = (options = {}) =>
     ["queryListOpenNotifications"],
     () =>
       axios
-        .get(`${BASE_URL}/notificacoes-abertas`)
+        .get(`${BASE_URL}/notificacoes/notificacoes-abertas`)
         .then((result) => result.data),
     {
       retry: false,

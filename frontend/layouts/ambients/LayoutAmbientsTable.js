@@ -14,10 +14,12 @@ import {
   Flex,
   Spinner,
 } from "@chakra-ui/react";
+import QRCode from "react-qr-code";
 
 import { useQueryListAmbients } from "service/ambients";
 
 import LayoutAmbientsTableActions from "./LayoutAmbientsTableActions";
+import Link from "next/link";
 
 const LayoutAmbientsTable = () => {
   const { data, isLoading } = useQueryListAmbients();
@@ -69,14 +71,16 @@ const LayoutAmbientsTable = () => {
               <Td>{ambient.codigoSala}</Td>
               <Td>
                 <Box ml="10px">
-                  <Button variant="ghost">
-                    <Image
-                      src="/assets/qrcode.png"
-                      height={31}
-                      width={31}
-                      alt="geração do qrcode"
-                    />
-                  </Button>
+                  <Link href={`/qrcode/${ambient.codigoSala}`} passHref>
+                    <Button variant="ghost">
+                      <Image
+                        src="/assets/qrcode.png"
+                        height={31}
+                        width={31}
+                        alt="geração do qrcode"
+                      />
+                    </Button>
+                  </Link>
                 </Box>
               </Td>
               <Td>{ambient.tamanhoBloco}</Td>

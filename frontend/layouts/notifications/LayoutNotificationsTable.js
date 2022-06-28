@@ -1,4 +1,6 @@
 import {
+  Flex,
+  Spinner,
   Text,
   Table,
   Thead,
@@ -9,98 +11,92 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 
+import { format } from "date-fns";
+
+import { useQueryListOpenNotifications } from "service/notifications";
+
 import LayoutNotificationsBadge from "./LayoutNotificationsBadge";
 import LayoutNotificationsTableActions from "./LayoutNotificationsTableActions";
 
-const notifications = [
-  {
-    student: "Felipe Maccari",
-    room: "V105",
-    date: "14/Março/2022",
-    dateLimit: "14/Março/2022",
-    status: 0,
-  },
-  {
-    student: "Felipe Maccari",
-    room: "V105",
-    date: "14/Março/2022",
-    dateLimit: "14/Março/2022",
-    status: 1,
-  },
-  {
-    student: "Felipe Maccari",
-    room: "V105",
-    date: "14/Março/2022",
-    dateLimit: "14/Março/2022",
-    status: 2,
-  },
-  {
-    student: "Felipe Maccari",
-    room: "V105",
-    date: "14/Março/2022",
-    dateLimit: "14/Março/2022",
-    status: 0,
-  },
-];
+const LayoutNotificationsTable = () => {
+  const { data = [], isLoading } = useQueryListOpenNotifications();
 
-const LayoutNotificationsTable = () => (
-  <TableContainer mt="60px">
-    <Table variant="simple">
-      <Thead>
-        <Tr>
-          <Th>
-            <Text color="greyText" fontSize="18px" fontWeight="semiBold">
-              Nome do Aluno
-            </Text>
-          </Th>
+  if (isLoading) {
+    return (
+      <Flex height="100vh" align="center" justify="center">
+        <Spinner size="lg" color="yellow" />
+      </Flex>
+    );
+  }
 
-          <Th>
-            <Text color="greyText" fontSize="18px" fontWeight="semiBold">
-              Sala
-            </Text>
-          </Th>
+  if (data.length === 0) {
+    return (
+      <Text
+        mt="50px"
+        color="blackText"
+        fontSize="19px"
+        fontWeight="bold"
+        textAlign="center"
+      >
+        Nenhuma notificação em aberto no momento
+      </Text>
+    );
+  }
 
-          <Th>
-            <Text color="greyText" fontSize="18px" fontWeight="semiBold">
-              Data Diagnóstico
-            </Text>
-          </Th>
+  return (
+    <TableContainer mt="60px">
+      <Table variant="simple">
+        <Thead>
+          <Tr>
+            <Th>
+              <Text color="greyText" fontSize="18px" fontWeight="semiBold">
+                Nome do Aluno
+              </Text>
+            </Th>
 
-          <Th>
-            <Text color="greyText" fontSize="18px" fontWeight="semiBold">
-              Prazo Atestado
-            </Text>
-          </Th>
+            <Th>
+              <Text color="greyText" fontSize="18px" fontWeight="semiBold">
+                Data Diagnóstico
+              </Text>
+            </Th>
 
-          <Th>
-            <Text color="greyText" fontSize="18px" fontWeight="semiBold">
-              Status
-            </Text>
-          </Th>
+            <Th>
+              <Text color="greyText" fontSize="18px" fontWeight="semiBold">
+                Prazo Atestado
+              </Text>
+            </Th>
 
-          <Th></Th>
-        </Tr>
-      </Thead>
+            <Th>
+              <Text color="greyText" fontSize="18px" fontWeight="semiBold">
+                Status
+              </Text>
+            </Th>
 
-      <Tbody>
-        {notifications.map((notification, index) => (
-          <Tr key={index}>
-            <Td>{notification.student}</Td>
-            <Td>{notification.room}</Td>
-            <Td>{notification.date}</Td>
-            <Td>{notification.dateLimit}</Td>
-            <Td>
-              <LayoutNotificationsBadge status={notification.status} />
-            </Td>
-
-            <Td isNumeric>
-              <LayoutNotificationsTableActions notification={notification} />
-            </Td>
+            <Th></Th>
           </Tr>
-        ))}
-      </Tbody>
-    </Table>
-  </TableContainer>
-);
+        </Thead>
+
+        <Tbody>
+          {data.map((notification, index) => (
+            <Tr key={index}>
+              <Td>{notification.usuarioNome}</Td>
+              <Td>
+                {format(notification.dataInicialAfastamento, "dd/MM/yyy")}
+              </Td>
+              <Td>{format(notification.dataFinalAfastamento, "dd/MM/yyy")}</Td>
+              <Td>
+                <LayoutNotificationsBadge status={notification.status} />
+              </Td>
+
+              <Td isNumeric>
+                <LayoutNotificationsTableActions notification={notification} />
+              </Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
+    </TableContainer>
+  );
+};
 
 export default LayoutNotificationsTable;
