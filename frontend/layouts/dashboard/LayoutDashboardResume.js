@@ -1,14 +1,25 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, Spinner } from "@chakra-ui/react";
+import { useQueryListNotifications } from "service/notifications";
 
 import LayoutDashboardStatusCard from "./LayoutDashboardStatusCard";
 
-const notificationsStatus = [
-  { title: "Casos Encerrados", quantity: 16 },
-  { title: "Casos em Aberto", quantity: 5 },
-  { title: "Total de Casos", quantity: 23 },
-];
-
 const LayoutDashboardResume = () => {
+  const { data, isLoading } = useQueryListNotifications();
+
+  const notificationsStatus = [
+    { title: "Casos Encerrados", quantity: data?.casosEncerrados },
+    { title: "Casos em Aberto", quantity: data?.casosAbertos },
+    { title: "Total de Casos", quantity: data?.total },
+  ];
+
+  if (isLoading) {
+    return (
+      <Flex height="100vh" align="center" justify="center">
+        <Spinner size="lg" color="yellow" />
+      </Flex>
+    );
+  }
+
   return (
     <Flex
       width="100%"
