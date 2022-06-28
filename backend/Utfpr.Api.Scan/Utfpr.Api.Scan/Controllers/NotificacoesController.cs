@@ -18,8 +18,15 @@ public class NotificacoesController : MainController
     public async Task<ActionResult<NotificacaoViewModel>> CriaNotificacao(CadastrarNotificacaoCommand command)
         => await ExecuteCommandCadastro(command.AtribuirUsuarioId(UserId));
 
+    [HttpGet("notificacoes-abertas")]
+    public async Task<ActionResult<ICollection<NotificacaoViewModel>>> ObterNotificacoesAbertas()
+        => await ExecuteQueryLista(new ObterNotificacoesAbertasQuery());
+
     [HttpGet]
-    public async Task<ActionResult<ICollection<NotificacaoViewModel>>> ObterNotificacoesAbertas(
-        ObterNotificacoesAbertasQuery query)
-        => await ExecuteQueryLista(query);
+    public async Task<ActionResult<ListaNotificacaoViewModel>> ObterNotificacoes()
+        => await ExecuteQueryPorId(new ObterNotificacoesQuery());
+
+    [HttpGet("{id:guid}/emails")]
+    public async Task<ActionResult<ListaEmailContatoNotificacaoViewModel>> ObterListaEmailContato(Guid id)
+        => await ExecuteQueryPorId(new ObterListaEmailsContatoQuery(id));
 }

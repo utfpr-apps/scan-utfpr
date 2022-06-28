@@ -9,12 +9,12 @@ namespace Utfpr.Api.Scan.Infrastructure;
 public class Repository<T> : IRepository<T> where T : Entity
 {
     protected readonly DbSet<T> DbSet;
-    private readonly ApplicationDbContext _context;
+    protected readonly ApplicationDbContext Context;
     private readonly INotificationContext _notificationContext;
 
     public Repository(ApplicationDbContext context, INotificationContext notificationContext)
     {
-        _context = context;
+        Context = context;
         _notificationContext = notificationContext;
         DbSet = context.Set<T>();
     }
@@ -79,7 +79,7 @@ public class Repository<T> : IRepository<T> where T : Entity
 
     public async Task<bool> Commit()
     {
-        return !(await _context.SaveChangesAsync() < 1);
+        return !(await Context.SaveChangesAsync() < 1);
     }
 
     public async Task<bool> Existe(Guid id)

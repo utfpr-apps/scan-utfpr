@@ -146,7 +146,8 @@ public class UserService : IUserService
             Email = payload.Email,
             UserName = payload.Email,
             Id = command.Id.ToString(),
-            EmailConfirmed = payload.EmailVerified
+            EmailConfirmed = payload.EmailVerified,
+            Nome = payload.Name
         };
 
         await _userManager.CreateAsync(user);

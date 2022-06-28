@@ -10,14 +10,12 @@ namespace Utfpr.Api.Scan.Application.Notificacao.QueryHandlers;
 public class ObterNotificacoesAbertasQueryHandlers : IRequestHandler<ObterNotificacoesAbertasQuery, ICollection<NotificacaoViewModel>>
 {
     private readonly INotificacaoRepository _ambienteRepository;
-    private readonly INotificationContext _notificationContext;
     private readonly IMapper _mapper;
 
 
-    public ObterNotificacoesAbertasQueryHandlers(INotificacaoRepository ambienteRepository, INotificationContext notificationContext, IMapper mapper)
+    public ObterNotificacoesAbertasQueryHandlers(INotificacaoRepository ambienteRepository, IMapper mapper)
     {
         _ambienteRepository = ambienteRepository;
-        _notificationContext = notificationContext;
         _mapper = mapper;
     }
 

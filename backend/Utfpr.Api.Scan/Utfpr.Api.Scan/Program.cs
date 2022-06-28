@@ -1,3 +1,4 @@
+using Microsoft.OpenApi.Models;
 using Utfpr.Api.Scan.Configuration;
 using Utfpr.Api.Scan.Infrastructure.Data;
 
@@ -12,7 +13,34 @@ builder.Configuration.AddConfiguration(configurationBuilder.Build());
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo{Title = "API Scan UTFPR", Version = "v1"});
+    
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Autohrization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header
+    });
+    
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
+});
 builder.Services.ConfigureDatabase(builder.Configuration, builder.Environment);
 builder.Services.AddAuthenticationConfiguration();
 builder.Services.AdicionaDependencias();

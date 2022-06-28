@@ -12,7 +12,7 @@ using Utfpr.Api.Scan.Infrastructure.Data;
 namespace Utfpr.Api.Scan.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220525011225_Notificacoes")]
+    [Migration("20220627014739_Notificacoes")]
     partial class Notificacoes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -283,6 +283,36 @@ namespace Utfpr.Api.Scan.Migrations
                     b.ToTable("Checkin", (string)null);
                 });
 
+            modelBuilder.Entity("Utfpr.Api.Scan.Domain.Models.Notificacao.Notificacao", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Base64Comprovante")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CadastradoEm")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DataFinalAfastamento")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("DataInicialAfastamento")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UsuarioId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Notificacoes");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -349,6 +379,17 @@ namespace Utfpr.Api.Scan.Migrations
                         .IsRequired();
 
                     b.Navigation("Ambiente");
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Utfpr.Api.Scan.Domain.Models.Notificacao.Notificacao", b =>
+                {
+                    b.HasOne("Utfpr.Api.Scan.Domain.Models.Autenticacao.ApplicationUser", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Usuario");
                 });
