@@ -18,6 +18,7 @@ public static class RolesSeeder
         var emailMaster = Environment.GetEnvironmentVariable("EMAIL_MASTER");
         var masterUser = new ApplicationUser
         {
+            Id = "e938c2ba-f094-4d1d-a458-ddc0752fc833",
             UserName = emailMaster,
             Email = emailMaster,
             EmailConfirmed = true,
@@ -29,7 +30,7 @@ public static class RolesSeeder
             var user = await userManager.FindByEmailAsync(masterUser.Email);
             if (user == null)
             {
-                await userManager.CreateAsync(masterUser, Environment.GetEnvironmentVariable("PASSWORD_MASTER"));
+                await userManager.CreateAsync(masterUser);
                 await userManager.AddToRoleAsync(masterUser, TipoUsuarioEnum.MASTER.ToString());
                 await userManager.AddToRoleAsync(masterUser, TipoUsuarioEnum.ADMINISTRADOR.ToString());
             }
