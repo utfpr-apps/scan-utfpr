@@ -10,5 +10,6 @@ public class NotificacaoViewModel : BaseViewModel
     public DateTime DataInicialAfastamento { get; set; }
     public DateTime DataFinalAfastamento { get; set; }
     public string UsuarioId { get; set; }
+    public string UsuarioNome { get; set; }
     public StatusNotificacaoEnum Status { get; set; }
 }
