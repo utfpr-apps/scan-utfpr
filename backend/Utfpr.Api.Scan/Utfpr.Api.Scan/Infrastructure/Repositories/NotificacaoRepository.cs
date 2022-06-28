@@ -19,6 +19,7 @@ public class NotificacaoRepository : Repository<Notificacao>, INotificacaoReposi
         return await DbSet
             .AsQueryable()
             .AsNoTracking()
+            .Include(t => t.Usuario)
             .Where(t => t.DataFinalAfastamento > DateTime.UtcNow)
             .ToListAsync();
     }

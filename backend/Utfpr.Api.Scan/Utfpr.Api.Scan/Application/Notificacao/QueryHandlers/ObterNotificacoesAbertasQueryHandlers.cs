@@ -3,7 +3,6 @@ using MediatR;
 using Utfpr.Api.Scan.Application.Notificacao.Interfaces;
 using Utfpr.Api.Scan.Application.Notificacao.Queries;
 using Utfpr.Api.Scan.Application.Notificacao.ViewModels;
-using Utfpr.Api.Scan.Application.Notification;
 
 namespace Utfpr.Api.Scan.Application.Notificacao.QueryHandlers;
 

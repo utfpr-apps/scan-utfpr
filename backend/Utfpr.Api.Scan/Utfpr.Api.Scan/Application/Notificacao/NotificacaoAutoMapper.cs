@@ -7,6 +7,9 @@ public class NotificacaoAutoMapper : Profile
 {
     public NotificacaoAutoMapper()
     {
-        CreateMap<Domain.Models.Notificacao.Notificacao, NotificacaoViewModel>();
+        CreateMap<Domain.Models.Notificacao.Notificacao, NotificacaoViewModel>()
+            .ForMember(t => t.UsuarioNome, 
+                src => 
+                    src.MapFrom(k => k.Usuario.Nome));
     }
 }
