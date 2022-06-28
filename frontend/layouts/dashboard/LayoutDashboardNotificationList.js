@@ -3,13 +3,6 @@ import { Box, Flex, Text, Spinner } from "@chakra-ui/react";
 import Container from "components/Container";
 import { useQueryListOpenNotifications } from "service/notifications";
 
-const notifications = [
-  { name: "Felipe", date: "01/04/2022" },
-  { name: "Cesar", date: "01/04/2022" },
-  { name: "Maccari", date: "01/04/2022" },
-  { name: "Felipe Cesar", date: "01/04/2022" },
-];
-
 const LayoutDashboardNotificationList = () => {
   const { data = [], isLoading } = useQueryListOpenNotifications();
 
@@ -53,7 +46,7 @@ const LayoutDashboardNotificationList = () => {
               </Text>
             </Flex>
 
-            {notifications.map((notification, index) => (
+            {data.map((notification, index) => (
               <Flex
                 key={index}
                 width="100%"
@@ -62,10 +55,10 @@ const LayoutDashboardNotificationList = () => {
                 borderBottom="1px solid #DFE0EB"
               >
                 <Text color="blackText" fontSize="14px" fontWeight="semiBold">
-                  {notification.name}
+                  {notification.usuarioNome}
                 </Text>
                 <Text color="greyText" fontSize="14px" fontWeight="semiBold">
-                  {notification.date}
+                  {notification.dataFinalAfastamento}
                 </Text>
               </Flex>
             ))}
