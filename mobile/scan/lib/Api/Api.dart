@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:http/retry.dart';
 import 'package:scan/models/ambientes_model.dart';
+import 'package:scan/models/login_model.dart';
 
 import '../models/checkin_post_model.dart';
 
@@ -25,15 +26,14 @@ class API {
     }
     return AmbienteModel();
   }
-  
 
-  Future<http.Response> login(AmbienteModel ambiente) {
+  Future<http.Response> login(LoginModel login) {
     return http.post(
-      Uri.parse('https://utfpr-scan.herokuapp.com/api/Ambientes'),
+      Uri.parse('https://utfpr-scan.herokuapp.com/api/Auth/login-usuario-app'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: ambiente.toJson(),
+      body: login.toJson(),
     );
   }
 
@@ -45,8 +45,6 @@ class API {
       },
       body: ambiente.toJson(),
     );
-   
-    
   }
 }
 
