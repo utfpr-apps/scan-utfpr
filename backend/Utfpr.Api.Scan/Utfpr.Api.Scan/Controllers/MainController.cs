@@ -13,14 +13,12 @@ public class MainController : ControllerBase
 {
     protected readonly IMediator Mediator;
     protected readonly INotificationContext NotificationContext;
-    protected readonly string UserId;
+    protected string? UserId => User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
     public MainController(IMediator mediator, INotificationContext notificationContext)
     {
         Mediator = mediator;
         NotificationContext = notificationContext;
-        if(User != null)
-            UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
     }
 
     protected ActionResult DefineCodigoResponse(object response)

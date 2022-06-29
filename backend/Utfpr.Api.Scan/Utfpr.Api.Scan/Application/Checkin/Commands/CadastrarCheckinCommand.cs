@@ -13,7 +13,7 @@ public class CadastrarCheckinCommand : Command<CheckinViewModel>
     public byte QuantidadeBlocos { get; set; }
     public Guid AmbienteId { get; set; }
     [JsonIgnore]
-    public string UserId { get; private set; }
+    public string? UserId { get; private set; }
     
 
     public CadastrarCheckinCommand()
@@ -22,7 +22,7 @@ public class CadastrarCheckinCommand : Command<CheckinViewModel>
         DataCheckin = DateTime.Now; 
     }
 
-    public CadastrarCheckinCommand AtribuirUserId(string userId)
+    public CadastrarCheckinCommand AtribuirUserId(string? userId)
     {
         UserId = userId;
         return this;

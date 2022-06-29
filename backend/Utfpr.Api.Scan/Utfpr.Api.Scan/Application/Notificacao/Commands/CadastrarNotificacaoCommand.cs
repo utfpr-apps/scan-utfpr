@@ -16,9 +16,9 @@ public class CadastrarNotificacaoCommand : Command<NotificacaoViewModel>
     public DateTime DataInicialAfastamento { get; set; }
     public DateTime DataFinalAfastamento { get; set; }
     [JsonIgnore]
-    public string UsuarioId { get; set; }
+    public string? UsuarioId { get; set; }
     
-    public CadastrarNotificacaoCommand AtribuirUsuarioId(string usuarioId)
+    public CadastrarNotificacaoCommand AtribuirUsuarioId(string? usuarioId)
     {
         UsuarioId = usuarioId;
         return this;
