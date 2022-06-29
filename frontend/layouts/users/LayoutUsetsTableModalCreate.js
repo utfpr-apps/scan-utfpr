@@ -70,7 +70,7 @@ const LayoutUsetsTableModalCreate = ({ isOpen, onClose }) => {
                   <Input
                     id="nome"
                     type="text"
-                    placeholder="Ex: V105"
+                    placeholder="Ex: Vinicius Pegorini"
                     {...register("nome", {
                       required: "O nome do usuário é obrigatório",
                     })}
