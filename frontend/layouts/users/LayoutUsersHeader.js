@@ -1,9 +1,11 @@
 import { Box, Text, Flex, Button, useDisclosure } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
 
-import { FaFilter } from "react-icons/fa";
-import { BsSortUp } from "react-icons/bs";
 import { MdAdd } from "react-icons/md";
-import LayoutUsetsTableModalCreate from "./LayoutUsetsTableModalCreate";
+
+const LayoutUsetsTableModalCreate = dynamic(() =>
+  import("./LayoutUsetsTableModalCreate")
+);
 
 const LayoutUsersHeader = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();

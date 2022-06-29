@@ -36,6 +36,14 @@ const LayoutUsetsTableModalCreate = ({ isOpen, onClose }) => {
         isClosable: true,
       });
     },
+    onError: () => {
+      toast({
+        title: "Ocorreu um erro ao salvar o usuário",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    },
   });
 
   const {

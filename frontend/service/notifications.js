@@ -23,3 +23,16 @@ export const useQueryListOpenNotifications = (options = {}) =>
       ...options,
     }
   );
+
+export const useQueryListEmailNotifications = (notificationId, options = {}) =>
+  useQuery(
+    ["queryListEmailNotifications"],
+    () =>
+      axios
+        .get(`${BASE_URL}/notificacoes/${notificationId}/emails`)
+        .then((result) => result.data),
+    {
+      retry: false,
+      ...options,
+    }
+  );
