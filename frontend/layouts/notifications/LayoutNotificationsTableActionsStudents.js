@@ -12,25 +12,27 @@ import {
   Flex,
   Text,
   useToast,
+  Spinner,
 } from "@chakra-ui/react";
-
-const students = [
-  { name: "Felipe Maccari", email: "felipe@maccari.com.br" },
-  { name: "Felipe Maccari", email: "felipe@maccari.com.br" },
-  { name: "Felipe Maccari", email: "felipe@maccari.com.br" },
-  { name: "Felipe Maccari", email: "felipe@maccari.com.br" },
-  { name: "Felipe Maccari", email: "felipe@maccari.com.br" },
-  { name: "Felipe Maccari", email: "felipe@maccari.com.br" },
-  { name: "Felipe Maccari", email: "felipe@maccari.com.br" },
-  { name: "Felipe Maccari", email: "felipe@maccari.com.br" },
-];
+import { format } from "date-fns";
+import { useQueryListEmailNotifications } from "service/notifications";
 
 const LayoutNotificationsTableActionsStudents = ({ notification }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
+  const [data, isLoading] = useQueryListEmailNotifications();
+
+  if (isLoading) {
+    return (
+      <Flex height="100vh" align="center" justify="center">
+        <Spinner size="lg" color="yellow" />
+      </Flex>
+    );
+  }
+
   const handleCopyEmails = () => {
-    const emails = students.map((student) => student.email);
+    const emails = data.map((email) => email);
 
     navigator.clipboard.writeText(emails.toString());
 
@@ -57,27 +59,32 @@ const LayoutNotificationsTableActionsStudents = ({ notification }) => {
                 fontWeight="bold"
                 textAlign="center"
                 textDecor="underline"
-              >{`Notificação registrada pelo estudante ${notification.student}`}</Text>
+              >{`Notificação registrada pelo estudante ${notification.usuarioNome}`}</Text>
 
               <Text
                 mt="10px"
                 fontWeight={600}
                 textAlign="center"
-              >{`Data do registro: ${notification.date}`}</Text>
+              >{`Data do registro: ${format(
+                notification.dataInicialAfastamento,
+                "dd/MM/yyyy"
+              )}`}</Text>
               <Text
                 fontWeight={600}
                 textAlign="center"
-              >{`Data limite do atestado: ${notification.dateLimit}`}</Text>
+              >{`Data limite do atestado: ${format(
+                notification.dataFinalAfastamento,
+                "dd/MM/yyyy"
+              )}`}</Text>
 
-              <Text mt="50px">Os alunos envolvidos nessa notificação são:</Text>
+              <Text mt="50px">
+                Os emails dos alunos envolvidos nessa notificação são:
+              </Text>
 
               <Flex direction="column" ml="30px" mt="15px">
-                {students.map((student, index) => (
+                {data.map((student, index) => (
                   <Flex key={index}>
-                    <Text fontWeight={700} mr="5px">
-                      {student.name}
-                    </Text>
-                    - <Text ml="5px">{student.email}</Text>
+                    <Text ml="5px">{student.email}</Text>
                   </Flex>
                 ))}
               </Flex>
