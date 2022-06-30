@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:scan/Api/Api.dart';
+import 'package:scan/globals.dart' as globals;
 import 'package:scan/shared/themes/app_images.dart';
 import 'package:scan/shared/widgets/button.dart';
 
@@ -17,6 +18,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       drawer: SafeArea(
         child: Drawer(
@@ -39,6 +41,7 @@ class _HomePageState extends State<HomePage> {
                 imageAssetSouce: AppImages.qrCode,
                 text: "Ler QR Code",
                 ontap: () {
+                
                   Navigator.pushNamed(context, "scanner");
                 },
               ),

@@ -11,6 +11,8 @@ import 'modules/splash/splash_page.dart';
 import 'modules/success/success_page.dart';
 import 'shared/themes/app_colors.dart';
 
+import 'globals.dart' as globals;
+
 Future<void> main() async {
    WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
@@ -25,7 +27,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        
         splashColor: AppColors.primary,
         primaryColor: AppColors.primary,
       ),

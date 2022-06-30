@@ -44,5 +44,5 @@ Para subir o projeto, podemos utilizar o android studio, instalando o mesmo e cr
 ### Conectividade
 
 - [x] Testar o get e post na API
-- [ ] Fazer autenticação com o Google
+- [x] Fazer autenticação com o Google
 - [ ] Enviar de fotos dos exames

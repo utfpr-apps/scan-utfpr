@@ -4,18 +4,16 @@ import 'dart:convert';
 class CheckinsPostModel {
   int quantidadeBlocos;
   String ambienteId;
-  String userId;
 
   CheckinsPostModel(
       {required this.quantidadeBlocos,
-      required this.ambienteId,
-      required this.userId});
+      required this.ambienteId});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'quantidadeBlocos': quantidadeBlocos,
       'ambienteId': ambienteId,
-      'userId': userId,
+      
     };
   }
 
@@ -23,7 +21,7 @@ class CheckinsPostModel {
     return CheckinsPostModel(
       quantidadeBlocos: map['quantidadeBlocos'] as int,
       ambienteId: map['ambienteId'] as String,
-      userId: map['userId'] as String,
+      
     );
   }
 

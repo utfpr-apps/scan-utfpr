@@ -1,6 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:scan/Api/Api.dart';
+import 'package:scan/models/notification_model.dart';
 import 'package:scan/modules/notification/pages/add_exame_page.dart';
 import 'package:scan/modules/notification/pages/description_page.dart';
 import 'package:scan/modules/notification/pages/notificate_page.dart';
@@ -8,7 +13,6 @@ import 'package:scan/shared/widgets/button.dart';
 
 import '../../shared/themes/app_colors.dart';
 import '../../shared/themes/app_images.dart';
-import '../../shared/themes/app_text_styles.dart';
 import '../../shared/widgets/drawer_tiles.dart';
 
 class NotificationPage extends StatefulWidget {
@@ -20,6 +24,30 @@ class NotificationPage extends StatefulWidget {
 
 class _NotificationPageState extends State<NotificationPage> {
   int index = 0;
+
+  File? _image;
+
+  final _picker = ImagePicker();
+  
+
+  Future<void> _openImagePicker() async {
+    API _api = API();
+    final XFile? pickedImage =
+        await _picker.pickImage(source: ImageSource.camera);
+    if (pickedImage != null) {
+      setState(() {
+        _image = File(pickedImage.path);
+      });
+      Uint8List imagebytes = await pickedImage.readAsBytes(); //convert to bytes
+      String base64string = base64.encode(imagebytes); //convert bytes to base64 string
+
+      //_api.notificate(NotificationModel(base64string, dataInicialAfastamento, dataFinalAfastamento));
+      print(base64string); 
+    }
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     List<Widget> FluxoPage = [
@@ -50,7 +78,8 @@ class _NotificationPageState extends State<NotificationPage> {
               title: "Enviar exame",
               onTap: () {
                 setState(() {
-                  Navigator.pushNamed(context, "success");
+                   _openImagePicker().then((value) => Navigator.pushNamed(context, "success"));
+                  
                 });
               },
             ),
