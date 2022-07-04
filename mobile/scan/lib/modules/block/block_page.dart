@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:scan/Api/Api.dart';
+import 'package:scan/globals.dart';
 import 'package:scan/models/ambientes_model.dart';
 import 'package:scan/shared/widgets/button.dart';
 import '../../models/checkin_post_model.dart';
@@ -24,6 +25,7 @@ class _BlockPageState extends State<BlockPage> {
   int _index = 0;
   @override
   Widget build(BuildContext context) {
+    
     final AmbienteModel _getModel =
         ModalRoute.of(context)!.settings.arguments as AmbienteModel;
     return Scaffold(
@@ -122,12 +124,12 @@ class _BlockPageState extends State<BlockPage> {
                 CheckinsPostModel teste = CheckinsPostModel(
                   ambienteId: _getModel.id!,
                   quantidadeBlocos: _index,
-                  userId: "Matheus",
+
                 );
 
-                _api.toCheckIn(teste).whenComplete(() {
-                 
-                  Navigator.pushNamed(context, "success");
+                _api.toCheckIn(teste,"eyJhbGciOiJSUzI1NiIsImtpZCI6IjJiMDllNzQ0ZDU4Yzk5NTVkNGYyNDBiNmE5MmY3YjM3ZmVhZDJmZjgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIzOTc5Njc0MDE3NTMtYTIzMjVsNGRyZmlsZWF2bjBqZzUya2ZnN3YyaG1rMTYuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIzOTc5Njc0MDE3NTMtZjloNDNoaWRkNzVtMWYycG4zMmRhMzlyaWVuNm9qYnYuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMTY3Mzc2NzU0OTQyNTkyMjEyOTgiLCJoZCI6ImFsdW5vcy51dGZwci5lZHUuYnIiLCJlbWFpbCI6Im1hdGhldXNvLjIwMjBAYWx1bm9zLnV0ZnByLmVkdS5iciIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiTUFUSEVVUyBTQU5UT1MgT0xJVkVJUkEiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2kzX3l5RHdBeWVqQ2YxV0hGNTREZ3ZnXzVzTThiX0JBaXpBTFlUPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6Ik1BVEhFVVMiLCJmYW1pbHlfbmFtZSI6IlNBTlRPUyBPTElWRUlSQSIsImxvY2FsZSI6InB0LUJSIiwiaWF0IjoxNjU2NDYwODA4LCJleHAiOjE2NTY0NjQ0MDh9.Ur34wuqtBihe0BpTGc7Z3mp8i7s1SxxRdP9a4ZtQK-omPTRz1TC3CeKDXj8EeFJHYXWnk9Y1zhNfrhgPaCDJTLYOyAlZ20TfW1cu2SglO3qpWYtGb-FMH_nDh8y-kXmB5ZeqsQyYOVwp5YvlQNiphqoNW3VXCLdsp4eWfBadDC1xbJA3ZinL9_uPDwc5HphRcsskAxBVJQDEw10mC20lZ-9nuHW2N8q_7CnBa0asWmepAlIO0fn8V1WUhdO0kXSlZWyNGdCgzb30Vi9wW0-jUMFxtWIBFePQ1rPtvbe4JupGVp8oNediqA1Vw6K2U1M94qIRFLpZlAIGimrzQGI5KQ" ).then((value) {
+                  print(value.statusCode);
+                 // Navigator.pushNamed(context, "success");
                 
                 });
               },
