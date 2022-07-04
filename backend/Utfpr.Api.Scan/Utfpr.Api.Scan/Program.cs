@@ -11,12 +11,11 @@ var configurationBuilder = new ConfigurationBuilder()
 
 builder.Configuration.AddConfiguration(configurationBuilder.Build());
 
-builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo{Title = "API Scan UTFPR", Version = "v1"});
-    
+    c.SwaggerDoc("v1", new OpenApiInfo {Title = "API Scan UTFPR", Version = "v1"});
+
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Autohrization",
@@ -25,7 +24,7 @@ builder.Services.AddSwaggerGen(c =>
         BearerFormat = "JWT",
         In = ParameterLocation.Header
     });
-    
+
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
@@ -37,28 +36,31 @@ builder.Services.AddSwaggerGen(c =>
                     Id = "Bearer"
                 }
             },
-            new string[] {}
+            new string[] { }
         }
     });
 });
 builder.Services.ConfigureDatabase(builder.Configuration, builder.Environment);
 builder.Services.AddAuthenticationConfiguration();
+builder.Services.AddControllers();
 builder.Services.AdicionaDependencias();
 builder.Services.AdicionaCors();
 builder.Services.AddProfilesConfiguration();
 
 var app = builder.Build();
 
+app.UseHttpsRedirection();
+app.UseRouting();
+app.UseAuthentication(); // this one first
+app.UseAuthorization(); 
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
-
-app.UseRouting();
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapControllers();
 app.ConfiguraCors();
 await app.MigrateDatabase<ApplicationDbContext>();
 

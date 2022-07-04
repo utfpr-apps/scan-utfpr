@@ -9,7 +9,6 @@ using Utfpr.Api.Scan.Application.Notification;
 namespace Utfpr.Api.Scan.Controllers;
 
 [Route("api/[controller]")]
-
 public class CheckinsController : MainController
 {
     public CheckinsController(IMediator mediator, INotificationContext notificationContext) : base(mediator, notificationContext)
