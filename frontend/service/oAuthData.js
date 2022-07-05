@@ -1,4 +1,7 @@
 import { useMutation } from "react-query";
+
+import axios from "axios";
+
 import getApi from "service";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
