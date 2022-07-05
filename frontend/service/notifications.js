@@ -38,7 +38,7 @@ export const useQueryListEmailNotifications = (
   return useQuery(
     ["queryListEmailNotifications"],
     () =>
-      axios
+      api
         .get(`${BASE_URL}/notificacoes/${notificationId}/emails`)
         .then((result) => result.data),
     {
