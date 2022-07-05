@@ -17,10 +17,6 @@ public static class CorsConfiguration
 
     public static void ConfiguraCors(this WebApplication app)
     {
-        app.UseCors(x =>
-            x.AllowAnyMethod()
-                .AllowAnyHeader()
-                .SetIsOriginAllowed(origin => true)
-                .AllowCredentials());
+        app.UseCors("EnableCORS");
     }
 }
