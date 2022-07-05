@@ -18,7 +18,7 @@ builder.Services.AddSwaggerGen(c =>
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Name = "Autohrization",
+        Name = "Authorization",
         Type = SecuritySchemeType.ApiKey,
         Scheme = "Bearer",
         BearerFormat = "JWT",
@@ -51,7 +51,7 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 app.UseRouting();
-app.UseAuthentication(); // this one first
+app.UseAuthentication();
 app.UseAuthorization(); 
 app.UseEndpoints(endpoints =>
 {
