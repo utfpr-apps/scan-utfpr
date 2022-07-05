@@ -12,6 +12,7 @@ var configurationBuilder = new ConfigurationBuilder()
 builder.Configuration.AddConfiguration(configurationBuilder.Build());
 
 builder.Services.AddEndpointsApiExplorer();
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo {Title = "API Scan UTFPR", Version = "v1"});

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Utfpr.Api.Scan.Infrastructure.Data;
@@ -11,9 +12,10 @@ using Utfpr.Api.Scan.Infrastructure.Data;
 namespace Utfpr.Api.Scan.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220705233502_TimeStamp")]
+    partial class TimeStamp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -292,9 +294,7 @@ namespace Utfpr.Api.Scan.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CadastradoEm")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
-                        .HasDefaultValueSql("NOW()");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("DataFinalAfastamento")
                         .HasColumnType("timestamp without time zone");
@@ -303,14 +303,13 @@ namespace Utfpr.Api.Scan.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("UsuarioId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Notificacao", (string)null);
+                    b.ToTable("Notificacoes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -387,9 +386,7 @@ namespace Utfpr.Api.Scan.Migrations
                 {
                     b.HasOne("Utfpr.Api.Scan.Domain.Models.Autenticacao.ApplicationUser", "Usuario")
                         .WithMany("Notificacoes")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UsuarioId");
 
                     b.Navigation("Usuario");
                 });
