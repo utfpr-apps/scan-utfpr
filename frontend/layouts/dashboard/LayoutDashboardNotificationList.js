@@ -44,7 +44,7 @@ const LayoutDashboardNotificationList = () => {
             fontWeight="bold"
             textAlign="center"
           >
-            Ocorreu um erro ao buscar as notificações. Pode tentar novamente?
+            Nenhuma notificação em aberto no momento.
           </Text>
         )}
 
