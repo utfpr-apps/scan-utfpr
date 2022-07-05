@@ -2,7 +2,6 @@
 using System.Security.Claims;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Utfpr.Api.Scan.Application;
 using Utfpr.Api.Scan.Application.Notification;
 
@@ -13,14 +12,12 @@ public class MainController : ControllerBase
 {
     protected readonly IMediator Mediator;
     protected readonly INotificationContext NotificationContext;
-    protected readonly string UserId;
+    protected string? UserId => User.FindFirst(i => i.Type == ClaimTypes.NameIdentifier)?.Value;
 
     public MainController(IMediator mediator, INotificationContext notificationContext)
     {
         Mediator = mediator;
         NotificationContext = notificationContext;
-        if(User != null)
-            UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
     }
 
     protected ActionResult DefineCodigoResponse(object response)

@@ -8,12 +8,12 @@ public class Notificacao : Entity
     public DateTime DataInicialAfastamento { get; set; }
     public DateTime DataFinalAfastamento { get; set; }
     
-    public string UsuarioId { get; set; }
+    public string? UsuarioId { get; set; }
     public virtual ApplicationUser Usuario { get; set; }
 
     public Notificacao() { }
 
-    public Notificacao(DateTime dataInicialAfastamento, DateTime dataFinalAfastamento, string usuarioId, string base64Comprovante)
+    public Notificacao(DateTime dataInicialAfastamento, DateTime dataFinalAfastamento, string? usuarioId, string base64Comprovante)
     {
         DataInicialAfastamento = dataInicialAfastamento;
         DataFinalAfastamento = dataFinalAfastamento;

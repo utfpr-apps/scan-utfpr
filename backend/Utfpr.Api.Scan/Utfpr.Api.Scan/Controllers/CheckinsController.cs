@@ -9,7 +9,6 @@ using Utfpr.Api.Scan.Application.Notification;
 namespace Utfpr.Api.Scan.Controllers;
 
 [Route("api/[controller]")]
-[AllowAnonymous]
 public class CheckinsController : MainController
 {
     public CheckinsController(IMediator mediator, INotificationContext notificationContext) : base(mediator, notificationContext)
@@ -17,6 +16,7 @@ public class CheckinsController : MainController
     }
 
     [HttpPost]
+    [Authorize(Roles = "ALUNO")]
     public async Task<ActionResult<CheckinViewModel>> RealizaCheckin(
         [FromBody] CadastrarCheckinCommand command)
         => await ExecuteCommandCadastro(command.AtribuirUserId(UserId));

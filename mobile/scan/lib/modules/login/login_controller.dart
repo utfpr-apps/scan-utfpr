@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:scan/Api/Api.dart';
+import 'package:scan/globals.dart' as globals;
 import 'package:scan/models/login_model.dart';
+import 'package:scan/models/response_api_user_model.dart';
+
 
 class LoginController {
   Future<void> googleSignIn(BuildContext context) async {
@@ -19,13 +24,13 @@ class LoginController {
       final response = await _googleSignIn.signIn();
       print(response!.email);
       response.serverAuthCode;
-      print(response.serverAuthCode);
+
 
       response.authentication.then((googleKey) {
-        print(googleKey.accessToken);
+
         print(googleKey.idToken);
         print(googleKey.idToken?.substring(1023, googleKey.idToken?.length));
-        print(googleKey.idToken?.length);
+
         final credential = GoogleAuthProvider.credential(
           accessToken: googleKey.accessToken,
           idToken: googleKey.idToken,
@@ -34,7 +39,12 @@ class LoginController {
         _api
             .login(
                 LoginModel(provider: "google.com", token: googleKey.idToken!))
-            .then((value) {
+            .then((value) async {
+              ResponseAPIUserModel _responseAPIUserModel = ResponseAPIUserModel();
+              
+              _responseAPIUserModel = ResponseAPIUserModel.fromMap(await json.decode(value.body));
+              globals.token = _responseAPIUserModel.userDataViewModel!.token!;
+              print(globals.token);
           if (value.statusCode == 200) Navigator.pushNamed(context, "home");
         });
         print(credential.providerId);
