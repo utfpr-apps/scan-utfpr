@@ -6,17 +6,17 @@ public static class CorsConfiguration
     {
         services.AddCors(options =>
         {
-            options.AddPolicy("EnableCORS", builder =>
-            {
-                builder.WithOrigins().AllowAnyMethod().AllowAnyHeader()
-                    .SetIsOriginAllowed(origin => true)
-                    .AllowCredentials().Build();
-            });
+            options.AddPolicy("AllowAnyOrigin",
+                builder => builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .SetIsOriginAllowed(origin => true));
         });
     }
 
     public static void ConfiguraCors(this WebApplication app)
     {
-        app.UseCors("EnableCORS");
+        app.UseCors("AllowAnyOrigin");
     }
 }
