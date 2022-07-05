@@ -49,8 +49,9 @@ builder.Services.AddProfilesConfiguration();
 
 var app = builder.Build();
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 app.UseRouting();
+app.ConfiguraCors();
 app.UseAuthentication();
 app.UseAuthorization(); 
 app.UseEndpoints(endpoints =>
@@ -61,7 +62,6 @@ app.UseEndpoints(endpoints =>
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.ConfiguraCors();
 await app.MigrateDatabase<ApplicationDbContext>();
 
 using (var scope = app.Services.CreateScope())
