@@ -4,7 +4,7 @@ import Container from "components/Container";
 import { useQueryListOpenNotifications } from "service/notifications";
 
 const LayoutDashboardNotificationList = () => {
-  const { data = [], isLoading } = useQueryListOpenNotifications();
+  const { data = [], status, isLoading } = useQueryListOpenNotifications();
 
   if (isLoading) {
     return (
@@ -26,16 +26,29 @@ const LayoutDashboardNotificationList = () => {
       </Text>
 
       <Box mt="60px" direction="column">
-        {data.length === 0 ? (
+        {status === "error" && (
           <Text
             color="blackText"
             fontSize="19px"
             fontWeight="bold"
             textAlign="center"
           >
-            Nenhuma notificação em aberto no momento
+            Ocorreu um erro ao buscar as notificações. Pode tentar novamente?
           </Text>
-        ) : (
+        )}
+
+        {status !== "error" && data.length === 0 && (
+          <Text
+            color="blackText"
+            fontSize="19px"
+            fontWeight="bold"
+            textAlign="center"
+          >
+            Nenhuma notificação em aberto no momento.
+          </Text>
+        )}
+
+        {status !== "error" && data.length > 0 && (
           <>
             <Flex width="100%" justify="space-between" mb="10px">
               <Text color="greyText" fontSize="18px" fontWeight="semiBold">

@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { SessionProvider } from "next-auth/react";
 
 import "../styles/globals.css";
+import "service";
 
 const breakpoints = createBreakpoints({
   sm: "30em",

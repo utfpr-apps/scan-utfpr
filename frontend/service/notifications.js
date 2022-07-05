@@ -1,21 +1,25 @@
-import axios from "axios";
-
 import { useQuery } from "react-query";
+import getApi from "service";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
 
-export const useQueryListNotifications = (options = {}) =>
-  useQuery(
+export const useQueryListNotifications = (options = {}) => {
+  const api = getApi();
+
+  return useQuery(
     ["queryListNotifications"],
-    () => axios.get(`${BASE_URL}/notificacoes`).then((result) => result.data),
+    () => api.get(`${BASE_URL}/notificacoes`).then((result) => result.data),
     { retry: false, ...options }
   );
+};
 
-export const useQueryListOpenNotifications = (options = {}) =>
-  useQuery(
+export const useQueryListOpenNotifications = (options = {}) => {
+  const api = getApi();
+
+  return useQuery(
     ["queryListOpenNotifications"],
     () =>
-      axios
+      api
         .get(`${BASE_URL}/notificacoes/notificacoes-abertas`)
         .then((result) => result.data),
     {
@@ -23,12 +27,18 @@ export const useQueryListOpenNotifications = (options = {}) =>
       ...options,
     }
   );
+};
 
-export const useQueryListEmailNotifications = (notificationId, options = {}) =>
-  useQuery(
+export const useQueryListEmailNotifications = (
+  notificationId,
+  options = {}
+) => {
+  const api = getApi();
+
+  return useQuery(
     ["queryListEmailNotifications"],
     () =>
-      axios
+      api
         .get(`${BASE_URL}/notificacoes/${notificationId}/emails`)
         .then((result) => result.data),
     {
@@ -36,3 +46,4 @@ export const useQueryListEmailNotifications = (notificationId, options = {}) =>
       ...options,
     }
   );
+};

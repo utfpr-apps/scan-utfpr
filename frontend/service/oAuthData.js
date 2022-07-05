@@ -1,23 +1,28 @@
+import { useMutation } from "react-query";
+
 import axios from "axios";
 
-import { useMutation } from "react-query";
+import getApi from "service";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
 
-export const useMutationLogin = (options = {}) =>
+export const useMutationLogin = (options) =>
   useMutation(
     (oAuthData) =>
       axios
         .post(`${BASE_URL}/auth/login-usuario-admin`, oAuthData)
-        .then((result) => result.data.data),
-    { retry: false, ...options }
+        .then((result) => result.data.userDataViewModel),
+    options
   );
 
-export const useMutationCreateUser = (options = {}) =>
-  useMutation(
+export const useMutationCreateUser = (options = {}) => {
+  const api = getApi();
+
+  return useMutation(
     (oAuthData) =>
-      axios
+      api
         .post(`${BASE_URL}/auth/criar-usuario-admin`, oAuthData)
         .then((result) => result.data.data),
     options
   );
+};
