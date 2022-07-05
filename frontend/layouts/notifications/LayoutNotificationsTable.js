@@ -19,13 +19,27 @@ import LayoutNotificationsBadge from "./LayoutNotificationsBadge";
 import LayoutNotificationsTableActions from "./LayoutNotificationsTableActions";
 
 const LayoutNotificationsTable = () => {
-  const { data = [], isLoading } = useQueryListOpenNotifications();
+  const { data = [], status, isLoading } = useQueryListOpenNotifications();
 
   if (isLoading) {
     return (
       <Flex height="100vh" align="center" justify="center">
         <Spinner size="lg" color="yellow" />
       </Flex>
+    );
+  }
+
+  if (status === "error") {
+    return (
+      <Text
+        mt="50px"
+        color="blackText"
+        fontSize="19px"
+        fontWeight="bold"
+        textAlign="center"
+      >
+        Ocorreu um erro ao buscar as notificações. Pode tentar novamente?
+      </Text>
     );
   }
 

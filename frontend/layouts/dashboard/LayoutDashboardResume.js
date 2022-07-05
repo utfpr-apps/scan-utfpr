@@ -7,9 +7,9 @@ const LayoutDashboardResume = () => {
   const { data, isLoading } = useQueryListNotifications();
 
   const notificationsStatus = [
-    { title: "Casos Encerrados", quantity: data?.casosEncerrados },
-    { title: "Casos em Aberto", quantity: data?.casosAbertos },
-    { title: "Total de Casos", quantity: data?.total },
+    { title: "Casos Encerrados", quantity: data?.casosEncerrados || 0 },
+    { title: "Casos em Aberto", quantity: data?.casosAbertos || 0 },
+    { title: "Total de Casos", quantity: data?.total || 0 },
   ];
 
   if (isLoading) {
