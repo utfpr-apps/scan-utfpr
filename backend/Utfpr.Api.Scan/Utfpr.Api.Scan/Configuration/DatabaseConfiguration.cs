@@ -7,7 +7,7 @@ namespace Utfpr.Api.Scan.Configuration;
 
 public static class DatabaseConfiguration
 {
-    public static IServiceCollection ConfigureDatabase(this IServiceCollection services, 
+    public static void ConfigureDatabase(this IServiceCollection services, 
         IConfiguration configuration, IWebHostEnvironment environment)
     {
         var connection = ConfigureDatabaseConnection(environment.EnvironmentName, configuration);
@@ -16,8 +16,6 @@ public static class DatabaseConfiguration
             opt.UseNpgsql(connection))
             .AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
-        
-        return services;
     }
     
     private static string ConfigureDatabaseConnection(string environmentName, IConfiguration configuration)

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Utfpr.Api.Scan.Application.Ambiente.Commands;
@@ -9,7 +10,6 @@ using Utfpr.Api.Scan.Application.Notification;
 namespace Utfpr.Api.Scan.Controllers;
 
 [Route("api/[controller]")]
-[Authorize]
 public class AmbientesController : MainController
 {
     public AmbientesController(IMediator mediator, INotificationContext notificationContext) : base(mediator, notificationContext)
@@ -28,7 +28,7 @@ public class AmbientesController : MainController
         => await ExecuteQueryLista(new ObterAmbientesQuery());
 
     [HttpGet("{id:guid}")]
-    [Authorize(Roles = "ADMINISTRADOR")]
+    [Authorize(Roles = "ADMINISTRADOR,ALUNO")]
     public async Task<ActionResult<AmbienteViewModel>> ObterAmbientePorId(Guid id)
         => await ExecuteQueryPorId(new ObtemAmbientePorIdQuery(id));
 

@@ -22,9 +22,7 @@ public class JwtHandler : IJwtHandler
     private SigningCredentials GetSigningCredentials()
     {
         var key = Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECURITY_KEY") ?? throw new ArgumentNullException());
-        var secret = new SymmetricSecurityKey(key);
-
-        return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256);
+        return new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature);
     }
 
     private async Task<List<Claim>> GetClaims(ApplicationUser user)
@@ -44,24 +42,26 @@ public class JwtHandler : IJwtHandler
         return claims;
     }
 
-    private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
+    private SecurityTokenDescriptor GenerateTokenDescriptor(SigningCredentials signingCredentials, List<Claim> claims)
     {
-        var tokenOptions = new JwtSecurityToken(
-            claims: claims,
-            expires: DateTime.Now.AddDays(7),
-            signingCredentials: signingCredentials);
-
-        return tokenOptions;
+        var tokenDescriptor = new SecurityTokenDescriptor
+        {
+            Subject = new ClaimsIdentity(claims),
+            Expires = DateTime.UtcNow.AddDays(14),
+            SigningCredentials = signingCredentials
+        };
+        return tokenDescriptor;
     }
 
     public async Task<string> GenerateToken(ApplicationUser user)
     {
         var signingCredentials = GetSigningCredentials();
         var claims = await GetClaims(user);
-        var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
-        var token = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-
-        return token;
+        var tokenDescriptor = GenerateTokenDescriptor(signingCredentials, claims);
+        
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var security = tokenHandler.CreateToken(tokenDescriptor);
+        return tokenHandler.WriteToken(security);
     }
 
     public async Task<GoogleJsonWebSignature.Payload> VerifyGoogleToken(string token)

@@ -22,7 +22,7 @@ import LayoutAmbientsTableActions from "./LayoutAmbientsTableActions";
 import Link from "next/link";
 
 const LayoutAmbientsTable = () => {
-  const { data, isLoading } = useQueryListAmbients();
+  const { data = [], status, isLoading } = useQueryListAmbients();
 
   if (isLoading) {
     return (
@@ -35,6 +35,34 @@ const LayoutAmbientsTable = () => {
           size="xl"
         />
       </Flex>
+    );
+  }
+
+  if (status === "error") {
+    return (
+      <Text
+        mt="50px"
+        color="blackText"
+        fontSize="19px"
+        fontWeight="bold"
+        textAlign="center"
+      >
+        Ocorreu um erro ao buscar os ambientes. Pode tentar novamente?
+      </Text>
+    );
+  }
+
+  if (data.length === 0) {
+    return (
+      <Text
+        mt="50px"
+        color="blackText"
+        fontSize="19px"
+        fontWeight="bold"
+        textAlign="center"
+      >
+        Nenhum ambiente cadastrado no momento
+      </Text>
     );
   }
 

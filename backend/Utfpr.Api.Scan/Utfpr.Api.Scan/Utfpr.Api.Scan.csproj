@@ -6,6 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <UserSecretsId>c5de65c4-1030-4505-abfc-954fd0303db5</UserSecretsId>
+        <DockerfileRunArguments>-e "ENABLE_CORS=true"</DockerfileRunArguments>
     </PropertyGroup>
 
     <ItemGroup>

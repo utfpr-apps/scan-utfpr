@@ -17,7 +17,7 @@ import { useQueryListUsers } from "service/users";
 import LayoutUsersTableActions from "./LayoutUsersTableActions";
 
 const LayoutUsersTable = () => {
-  const { data, isLoading } = useQueryListUsers();
+  const { data = [], status, isLoading } = useQueryListUsers();
 
   if (isLoading) {
     return (
@@ -30,6 +30,34 @@ const LayoutUsersTable = () => {
           size="xl"
         />
       </Flex>
+    );
+  }
+
+  if (status === "error") {
+    return (
+      <Text
+        mt="50px"
+        color="blackText"
+        fontSize="19px"
+        fontWeight="bold"
+        textAlign="center"
+      >
+        Ocorreu um erro ao buscar os usuários. Pode tentar novamente?
+      </Text>
+    );
+  }
+
+  if (data.length === 0) {
+    return (
+      <Text
+        mt="50px"
+        color="blackText"
+        fontSize="19px"
+        fontWeight="bold"
+        textAlign="center"
+      >
+        Nenhum usuário cadastrado no momento
+      </Text>
     );
   }
 
