@@ -31,7 +31,9 @@ const MainLayout = ({ children }) => {
         getApi();
         return;
       }
+    },
 
+    onError: () => {
       signOut();
     },
   });

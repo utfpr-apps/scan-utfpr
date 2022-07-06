@@ -10,7 +10,6 @@ import {
 import { BiDotsVerticalRounded } from "react-icons/bi";
 
 import LayoutNotificationsTableActionsStudents from "./LayoutNotificationsTableActionsStudents";
-import LayoutNotificationsTableActionsRemoveNotification from "./LayoutNotificationsTableActionsRemoveNotification";
 
 const LayoutNotificationsTableActions = ({ notification }) => (
   <Menu>
@@ -23,9 +22,6 @@ const LayoutNotificationsTableActions = ({ notification }) => (
 
     <MenuList>
       <LayoutNotificationsTableActionsStudents notification={notification} />
-      <LayoutNotificationsTableActionsRemoveNotification
-        notification={notification}
-      />
     </MenuList>
   </Menu>
 );

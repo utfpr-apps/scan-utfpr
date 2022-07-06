@@ -21,7 +21,7 @@ const LayoutNotificationsTableActionsStudents = ({ notification }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
-  const [data, isLoading] = useQueryListEmailNotifications();
+  const { data = [], isLoading } = useQueryListEmailNotifications();
 
   if (isLoading) {
     return (
@@ -66,28 +66,37 @@ const LayoutNotificationsTableActionsStudents = ({ notification }) => {
                 fontWeight={600}
                 textAlign="center"
               >{`Data do registro: ${format(
-                notification.dataInicialAfastamento,
+                new Date(notification.dataInicialAfastamento),
                 "dd/MM/yyyy"
               )}`}</Text>
+
               <Text
                 fontWeight={600}
                 textAlign="center"
               >{`Data limite do atestado: ${format(
-                notification.dataFinalAfastamento,
+                new Date(notification.dataFinalAfastamento),
                 "dd/MM/yyyy"
               )}`}</Text>
 
-              <Text mt="50px">
-                Os emails dos alunos envolvidos nessa notificação são:
-              </Text>
+              {data.length > 0 ? (
+                <>
+                  <Text mt="50px">
+                    Os emails dos alunos envolvidos nessa notificação são:
+                  </Text>
 
-              <Flex direction="column" ml="30px" mt="15px">
-                {data.map((student, index) => (
-                  <Flex key={index}>
-                    <Text ml="5px">{student.email}</Text>
+                  <Flex direction="column" ml="30px" mt="15px">
+                    {data.map((student, index) => (
+                      <Flex key={index}>
+                        <Text ml="5px">{student.email}</Text>
+                      </Flex>
+                    ))}
                   </Flex>
-                ))}
-              </Flex>
+                </>
+              ) : (
+                <Text textAlign="center" mt="50px">
+                  Nenhum aluno envolvido nesta notificação
+                </Text>
+              )}
             </Flex>
           </ModalBody>
 
@@ -96,14 +105,16 @@ const LayoutNotificationsTableActionsStudents = ({ notification }) => {
               Fechar
             </Button>
 
-            <Button
-              variant="outline"
-              background="primary"
-              mr="10px"
-              onClick={handleCopyEmails}
-            >
-              Copiar emails
-            </Button>
+            {data.length > 0 && (
+              <Button
+                variant="outline"
+                background="primary"
+                mr="10px"
+                onClick={handleCopyEmails}
+              >
+                Copiar emails
+              </Button>
+            )}
           </ModalFooter>
         </ModalContent>
       </Modal>

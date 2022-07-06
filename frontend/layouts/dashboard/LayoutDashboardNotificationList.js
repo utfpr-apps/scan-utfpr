@@ -1,6 +1,7 @@
 import { Box, Flex, Text, Spinner } from "@chakra-ui/react";
 
 import Container from "components/Container";
+import { format } from "date-fns";
 import { useQueryListOpenNotifications } from "service/notifications";
 
 const LayoutDashboardNotificationList = () => {
@@ -71,7 +72,10 @@ const LayoutDashboardNotificationList = () => {
                   {notification.usuarioNome}
                 </Text>
                 <Text color="greyText" fontSize="14px" fontWeight="semiBold">
-                  {notification.dataFinalAfastamento}
+                  {format(
+                    new Date(notification.dataFinalAfastamento),
+                    "dd/MM/yyyy"
+                  )}
                 </Text>
               </Flex>
             ))}

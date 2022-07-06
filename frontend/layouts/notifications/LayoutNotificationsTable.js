@@ -95,9 +95,17 @@ const LayoutNotificationsTable = () => {
             <Tr key={index}>
               <Td>{notification.usuarioNome}</Td>
               <Td>
-                {format(notification.dataInicialAfastamento, "dd/MM/yyy")}
+                {format(
+                  new Date(notification.dataInicialAfastamento),
+                  "dd/MM/yyy"
+                )}
               </Td>
-              <Td>{format(notification.dataFinalAfastamento, "dd/MM/yyy")}</Td>
+              <Td>
+                {format(
+                  new Date(notification.dataFinalAfastamento),
+                  "dd/MM/yyy"
+                )}
+              </Td>
               <Td>
                 <LayoutNotificationsBadge status={notification.status} />
               </Td>
