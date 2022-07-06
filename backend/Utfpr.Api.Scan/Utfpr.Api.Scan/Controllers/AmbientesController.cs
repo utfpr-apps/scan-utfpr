@@ -28,7 +28,7 @@ public class AmbientesController : MainController
         => await ExecuteQueryLista(new ObterAmbientesQuery());
 
     [HttpGet("{id:guid}")]
-    [Authorize(Roles = "ADMINISTRADOR")]
+    [Authorize(Roles = "ADMINISTRADOR,ALUNO")]
     public async Task<ActionResult<AmbienteViewModel>> ObterAmbientePorId(Guid id)
         => await ExecuteQueryPorId(new ObtemAmbientePorIdQuery(id));
 

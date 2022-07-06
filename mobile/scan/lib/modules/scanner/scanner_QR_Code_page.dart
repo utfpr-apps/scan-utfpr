@@ -39,7 +39,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                       } else {
                         final String code = barcode.rawValue!;
                         API _api = API();
-                        _api.hasAmbiente(code).then(
+                        _api.hasAmbiente(code, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibWF0aGV1c28uMjAyMEBhbHVub3MudXRmcHIuZWR1LmJyIiwibmFtZWlkIjoiYzJhNmZjZDQtZjNjNS00NDM3LTkwZjktY2VmM2MwZGQzMzIyIiwicm9sZSI6IkFMVU5PIiwibmJmIjoxNjU3MDYzMDI1LCJleHAiOjE2NTgyNzI2MjUsImlhdCI6MTY1NzA2MzAyNX0.FfdnpOog8BxlN8lXbI0KRa65aOQgUfk69ipWj8HNUeU").then(
                           (value) {
                             if (value.id != null) {
                               print("achei");
