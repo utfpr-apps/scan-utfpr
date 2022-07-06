@@ -41,7 +41,10 @@ class _NotificationPageState extends State<NotificationPage> {
       Uint8List imagebytes = await pickedImage.readAsBytes(); //convert to bytes
       String base64string = base64.encode(imagebytes); //convert bytes to base64 string
 
-      //_api.notificate(NotificationModel(base64string, dataInicialAfastamento, dataFinalAfastamento));
+      _api.notificate(
+        NotificationModel(base64string, "2022-07-06", "2023-07-06" ), 
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibWF0aGV1c28uMjAyMEBhbHVub3MudXRmcHIuZWR1LmJyIiwibmFtZWlkIjoiYzJhNmZjZDQtZjNjNS00NDM3LTkwZjktY2VmM2MwZGQzMzIyIiwicm9sZSI6IkFMVU5PIiwibmJmIjoxNjU3MDYzMDI1LCJleHAiOjE2NTgyNzI2MjUsImlhdCI6MTY1NzA2MzAyNX0.FfdnpOog8BxlN8lXbI0KRa65aOQgUfk69ipWj8HNUeU",
+      ).then((value) => print(value.body)).catchError((error, stackTrace) => print(error));
       print(base64string); 
     }
   }
@@ -78,6 +81,8 @@ class _NotificationPageState extends State<NotificationPage> {
               title: "Enviar exame",
               onTap: () {
                 setState(() {
+      
+                  
                    _openImagePicker().then((value) => Navigator.pushNamed(context, "success"));
                   
                 });
